@@ -1,0 +1,66 @@
+.video-section__media {
+  --ratio-percent: 56.25%;
+  position: relative;
+  padding-bottom: calc(var(--ratio-percent) - var(--media-border-width));
+}
+
+/* Needed for gradient continuity with or without animation so that transparent PNG images come up as we would expect */
+.scroll-trigger:where(.gradient.video-section__media) {
+  background: transparent;
+}
+
+.video-section__media.global-media-settings--full-width {
+  padding-bottom: var(--ratio-percent);
+}
+
+.video-section__media.deferred-media {
+  box-shadow: var(--media-shadow-horizontal-offset) var(--media-shadow-vertical-offset) var(--media-shadow-blur-radius)
+    rgba(var(--color-shadow), var(--media-shadow-opacity));
+}
+
+.video-section__media.deferred-media:after {
+  content: none;
+}
+
+.video-section__poster.deferred-media__poster:focus {
+  outline-offset: 0.3rem;
+}
+
+.video-section__media iframe {
+  background-color: rgba(var(--color-foreground), 0.03);
+  border: 0;
+}
+
+.video-section__poster,
+.video-section__media iframe,
+.video-section__media video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.video-section__media video {
+  background: #000000;
+}
+
+.video-section__media.media-fit-cover video {
+  object-fit: cover;
+}
+
+/* Zenon Css */
+.video-section { max-width: 1678px;}
+.video-section .video-section__media { border: 0.2rem solid rgb(var(--color-foreground));}
+.video-section .video-section__media .video-section__poster .deferred-media__poster-button { width: auto; height: auto; background: transparent; border: 0;}
+.video-section .video-section__media .video-section__poster .deferred-media__poster-button:hover { transform: translate(-50%,-50%) scale(1.03);}
+.video-section .video-section__media .video-section__poster .deferred-media__poster-button .svg-wrapper { width: 21.1rem; height: auto; aspect-ratio: 0.8828451882845188;}
+.video-section .video-section__media .video-section__poster .deferred-media__poster-button .svg-wrapper .icon { width: 100%; height: auto; margin: 0; color: rgb(var(--color-button)); filter: drop-shadow(0px 3.3043477535247803px 139.93911743164062px rgb(var(--color-button)));}
+
+
+@media only screen and (max-width: 1599px) {
+  .video-section .video-section__media .video-section__poster .deferred-media__poster-button .svg-wrapper {
+    width: 11.105263158vw;
+  }
+  .video-section .video-section__media .video-section__poster .deferred-media__poster-button .svg-wrapper .icon {
+    filter: drop-shadow(0 0.17391304vw 7.365216707vw rgb(var(--color-button)));
+  }
+}

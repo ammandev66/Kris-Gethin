@@ -1,0 +1,268 @@
+:root {
+  --clip-path-recommendations-tab-content-wrapper-size: 4.21vw;
+  --clip-path-recommendations-tab-content-size: 4.21vw;
+  --clip-path-recommendations-tab-content-wrapper-size: 8rem;
+  --clip-path-recommendations-tab-content-size: 8rem;
+}
+/* .main-recommendations-tab-content { margin-bottom: 2rem;} */
+.main-recommendations-tab-content .recommendations-tab-content-inner { padding-bottom: 5%; margin-bottom: -5%;}
+.recommendations-tab-content-wrapper {
+  --clip-path-recommendations-tab-content-wrapper-size: 4.21vw;
+  --clip-path-recommendations-tab-content-size: 4.21vw;
+  --clip-path-recommendations-tab-content-wrapper-size: 8rem;
+  --clip-path-recommendations-tab-content-size: 8rem;
+  position: relative;
+  background: transparent;
+  margin-top: calc(var(--clip-path-recommendations-tab-content-wrapper-size) * -1);
+  padding-top: 0.53vw;
+  padding-top: 1rem;
+}
+.recommendations-tab-content-wrapper:after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  background: rgb(var(--color-background));
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50%;
+}
+.recommendations-tab-content-wrapper:before {
+  content: '';
+  position: absolute;
+  top: -0.1rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  clip-path: polygon(
+    0% 0,
+    22.95% 0,
+    29.69% var(--clip-path-recommendations-tab-content-wrapper-size),
+    71.58% var(--clip-path-recommendations-tab-content-wrapper-size),
+    77.89% 0,
+    100% 0,
+    100% 99%,
+    0% 100%
+  );
+  background: linear-gradient(273deg, rgb(var(--color-button)) 0%, rgb(var(--color-background)) 100%);
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.recommendations-tab-content-wrapper .recommendations-tab-content-inner {
+  clip-path: polygon(
+    0% 0,
+    22.95% 0,
+    29.69% var(--clip-path-recommendations-tab-content-size),
+    /* 71.58% var(--clip-path-recommendations-tab-content-size),
+    77.89% 0, */
+    71.69% var(--clip-path-recommendations-tab-content-size),
+    77.99% 0,
+    100% 0,
+    100% 100%,
+    0% 100%
+  );
+  height: 100%;
+}
+
+.recommendations-tab-content-wrapper .recommendations-tab-content-inner:after, .recommendations-tab-content-wrapper .recommendations-tab-content-inner:before { content: ''; position: absolute; bottom: 0; left: auto; right: auto; bottom: 0; background: no-repeat scroll center center / 100% auto; width: 4.6rem; height: auto; aspect-ratio: 0.978723404; display: inline-flex; align-items: center; justify-content: center;}
+.recommendations-tab-content-wrapper .recommendations-tab-content-inner:before { left: 5rem; background-image: url('icon-top-left-corner-white.svg');}
+.recommendations-tab-content-wrapper .recommendations-tab-content-inner:after { right: 4.2rem; background-image: url('icon-top-right-corner-white.svg');}
+
+.recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper { margin-bottom: 7rem;}
+.recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .title { font-family: var(--font-thedus-wide-light); font-weight: 700; line-height: 0.6201450025; max-width: 102.4rem; display: inline-block; margin-bottom: 3.8rem;}
+.recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .description { font-family: var(--font-body-family); font-size: 2.5rem; font-weight: 500; line-height: 1.166263115; max-width: 84.3rem; display: inline-block;}
+`.recommendations-tab-content-wrapper .recommendations-tab-content-inner .recommendations-tab-content .page-width { --page-width: 173rem;}
+
+.recommendations-tab-content-wrapper .tab_content .tab_group-wrapper { /*visibility: hidden; height: 0;*/ display: none;}
+.recommendations-tab-content-wrapper .tab_content .tab_group-wrapper.active { /*visibility: visible; height: auto;*/ display: block;}
+
+.recommendations-tab-content-wrapper .tab_content_wrapper { overflow: hidden; margin-bottom: 5rem;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content_inner { overflow-x: scroll;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content_inner::-webkit-scrollbar { height: 0.6rem;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content_inner::-webkit-scrollbar-track { background: rgb(var(--color-button-text)); border-radius: 1rem;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content_inner::-webkit-scrollbar-thumb { background: rgb(var(--color-button)); border-radius: 1rem;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 { display: flex; align-items: center; gap: 6.6rem;/* justify-content: center;*/ margin-bottom: 2rem;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading { cursor: pointer;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading .tab__title { font-family: var(--font-inter); font-size: 2rem; font-weight: 700; line-height: 1.15; text-transform: none; margin: 0; white-space: nowrap;}
+.recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading.active .tab__title { color: rgb(var(--color-button));}
+
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-list { --grid-desktop-horizontal-spacing: 3.9rem; --grid-desktop-vertical-spacing: 9.1rem; display: flex;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-list .tab_content-list-item { /*height: 100%;*/ height: auto; display: flex; flex-direction: column;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  --border-spacing: 0.4rem;
+  --clip-path-inner-edge-x-size: 2.4rem;
+  --clip-path-inner-edge-y-size: 1.8rem;
+  --clip-path-edge-x-size: 3rem;
+  --clip-path-edge-y-size: 6rem;
+  --transition: 0.25s;
+  overflow: hidden;
+}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(var(--color-button));
+  clip-path: polygon(0% 0%,  calc(100% - var(--clip-path-edge-x-size)) 0%, 100% var(--clip-path-edge-y-size), 100% 100%, calc(var(--clip-path-edge-x-size) - 0.2rem) 100%, 0% calc(100% - var(--clip-path-edge-y-size)));
+  transition: var(--transition);
+  z-index: 1;
+  overflow: hidden;
+}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-caption { font-family: var(--font-inter); font-size: 1.6rem; font-weight: 600; line-height: 1.7978208; margin: 0;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-card__image-wrapper {
+  display: flex;
+  position: absolute;
+  top: var(--border-spacing);
+  left: var(--border-spacing);
+  right: var(--border-spacing);
+  bottom: var(--border-spacing);
+  width: calc(100% - var(--border-spacing) * 2);
+  height: calc(100% - var(--border-spacing) * 2);
+  z-index: 1;
+  overflow: hidden;
+  clip-path: polygon(0% 0%, calc(100% - var(--clip-path-edge-x-size)) 0%, 100% var(--clip-path-edge-y-size), 100% 100%, calc(var(--clip-path-edge-x-size) - 0.2rem) 100%, 0% calc(100% - var(--clip-path-edge-y-size)));
+}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-card__image-wrapper .media { width: 100%;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card:not(:has(.tab_content-card__image-wrapper)):after {
+  content: '';
+  position: absolute;
+  top: var(--border-spacing);
+  left: var(--border-spacing);
+  right: var(--border-spacing);
+  bottom: var(--border-spacing);
+  width: calc(100% - var(--border-spacing) * 2);
+  height: calc(100% - var(--border-spacing) * 2);
+  z-index: 1;
+  overflow: hidden;
+  clip-path: polygon(0% 0%, calc(100% - var(--clip-path-edge-x-size)) 0%, 100% var(--clip-path-edge-y-size), 100% 100%, calc(var(--clip-path-edge-x-size) - 0.2rem) 100%, 0% calc(100% - var(--clip-path-edge-y-size)));
+  background: rgb(var(--color-background));
+}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info { padding: 1.4rem 2.4rem 2.2rem 2.4rem; box-sizing: border-box; z-index: 2; width: 59%; min-height: 30rem; display: flex; flex-direction: column; justify-content: center; text-align: center;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .tab_content-info__image-wrapper { width: 90%; margin-inline: auto;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .tab_content-caption { font-family: var(--font-heading-family); font-size: 3.8rem; font-weight: 700; line-height: 0.674479; letter-spacing: normal;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext { font-size: 3.8rem; font-weight: 700; line-height: 0.817708; margin: -1rem 0 0 0;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h1 { font-size: 4.5rem;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h0 { font-size: 9.6rem;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .content.rte { font-family: var(--font-body-family); font-size: 3.3rem; font-weight: 700; line-height: 1.12; letter-spacing: normal; margin-top: 0;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .promo { font-family: var(--font-body-family); font-size: 3rem; font-weight: 400; line-height: 1.12; letter-spacing: normal; background: rgb(var(--color-button)); color: rgb(var(--color-button-text)); padding: 0.9rem 1.8rem; border-radius: 4rem; margin-top: 1rem; width: fit-content; margin-inline: auto;}
+.recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .promo strong { font-weight: 700;}
+
+.recommendations-tab-content-wrapper .recommendations-tab-content .button-wrapper { margin-top: 7rem; text-align: center;}
+
+.tc_recommendations.recommendations-tab-content-wrapper { position: relative; margin-top: 0; padding-top: 0;}
+.tc_recommendations.recommendations-tab-content-wrapper:before,
+.tc_recommendations.recommendations-tab-content-wrapper:after,
+.tc_recommendations.recommendations-tab-content-wrapper .recommendations-tab-content-inner:before,
+.tc_recommendations.recommendations-tab-content-wrapper .recommendations-tab-content-inner:after { opacity: 0; visibility: hidden;}
+.tc_recommendations.recommendations-tab-content-wrapper .recommendations-tab-content-inner { clip-path: none;}
+
+@media screen and (min-width: 990px) {
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info { padding: 0.7291666666666666vw 1.25vw 1.1458333333333333vw 1.25vw; min-height: 15.625vw;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .tab_content-caption { font-size: 1.9791666666666665vw;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext { font-size: 1.9791666666666665vw; margin: -0.5208333333333333vw 0 0 0;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h1 { font-size: 2.34375vw;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h0 { font-size: 5vw;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .content.rte { font-size: 1.7187500000000002vw;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .promo { font-size: 1.5625vw; padding: 0.46875vw 0.9375vw; margin-top: 0.5208333333333333vw;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content .button-wrapper { margin-top: 3.6458333333333335vw;}
+
+  /* .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .title.hxxl { font-size: 15.4rem;}
+
+  @media screen and (max-width: 1419px) {
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .title.hxxl { font-size: 12.4rem; max-width: 80rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .description { font-size: 2rem; max-width: 66.3rem;}
+    .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading .tab__title { font-size: 1.8rem;}
+    .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-caption { font-size: 1.4rem;}
+    .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info { padding: 1.4rem 2rem 1.1rem;}
+    .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext { font-size: 2.2rem;}
+    .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .content.rte { font-size: 1.6rem; margin-top: 1.4rem;}
+  }
+  @media screen and (max-width: 1279px) {
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .title.hxxl { font-size: 9.4rem; max-width: 62rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .description { font-size: 1.8rem; max-width: 60rem;}
+  }
+  @media screen and (max-width: 1169px) {
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper { margin-bottom: 5rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .title.hxxl { font-size: 7.4rem; max-width: 46rem; margin-bottom: 2.8rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .description { font-size: 1.6rem; max-width: 53rem;}
+    .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 { gap: 4.6rem; margin-bottom: 4rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content .button-wrapper { margin-top: 5rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content .button-wrapper .button:not(.button--secondary) { --min-height: 6.4rem; --min-width: 30rem; font-size: 1.8rem;}
+  }
+  @media screen and (max-width: 989px) {
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper { margin-bottom: 4rem;}
+    .recommendations-tab-content-wrapper { --clip-path-recommendations-tab-content-wrapper-size: 4rem; --clip-path-recommendations-tab-content-size: 4rem;}
+    .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 { gap: 3.2rem; margin-bottom: 3rem;}
+    .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading .tab__title { font-size: 1.4rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner:before { left: 2.2rem;}
+    .recommendations-tab-content-wrapper .recommendations-tab-content-inner:after { right: 2.2rem;}
+  } */
+}
+
+@media only screen and (min-width: 1900px) {
+  :root { --clip-path-recommendations-tab-content-wrapper-size: 4.21vw; --clip-path-recommendations-tab-content-size: 4.21vw;}
+  .recommendations-tab-content-wrapper { --clip-path-recommendations-tab-content-wrapper-size: 4.21vw; --clip-path-recommendations-tab-content-size: 4.21vw; padding-top: 0.53vw;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner:after,
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner:before { width: 2.421052632vw;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner:before { left: 2.631578947vw;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner:after { right: 2.210526316vw;}
+}
+
+@media screen and (max-width: 1419px) {
+  .recommendations-tab-content-wrapper { --clip-path-recommendations-tab-content-wrapper-size: 6rem; --clip-path-recommendations-tab-content-size: 6rem;}
+}
+
+@media screen and (max-width: 1259px) {
+  .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 { gap: 4.2rem;}
+  .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading .tab__title { font-size: 1.8rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-list { --grid-desktop-horizontal-spacing: 2.8rem; --grid-desktop-vertical-spacing: 6.8rem;}
+  .recommendations-tab-content-wrapper .button:not(.button--secondary) { --min-height: 5.8rem; --min-width: 34rem; --padding-inline: 3rem; font-size: 1.8rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card { --clip-path-edge-x-size: 2rem; --clip-path-edge-y-size: 4rem;}
+}
+
+@media screen and (max-width: 989px) {
+  .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 { gap: 2.2rem;}
+  .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading .tab__title { font-size: 1.6rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext { font-size: 3.2rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h1 { font-size: 4rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h0 { font-size: 7.6rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .content.rte { font-size: 2.2rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .promo { font-size: 2.4rem;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content .button-wrapper { margin-top: 3rem;}
+}
+
+@media screen and (max-width: 749px) {
+  .recommendations-tab-content-wrapper { --clip-path-recommendations-tab-content-wrapper-size: 4rem; --clip-path-recommendations-tab-content-size: 4rem;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper { margin-bottom: 4rem;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .title.hxxl { font-size: 5.8rem; max-width: 38rem; margin-bottom: 2.2rem;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner .title-wrapper .description { font-size: 1.6rem;}
+  .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content_inner::-webkit-scrollbar { height: 0.4rem;}
+  .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 { gap: 2.2rem;/* margin-bottom: 3rem; flex-wrap: wrap;*/}
+  .recommendations-tab-content-wrapper .tab_content_wrapper .tab_content1 .tab-heading .tab__title { font-size: 1.4rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-list { --grid-mobile-horizontal-spacing: 2rem; --grid-mobile-vertical-spacing: 6rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-caption { font-size: 1.4rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info { padding: 1.8rem 1.6rem 1.4rem; width: 60%; min-height: 20rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .tab_content-info__image-wrapper { width: 70%;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext { font-size: 2rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h1 { font-size: 2.8rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .inline-richtext.h0 { font-size: 5.2rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .content.rte { font-size: 1.4rem; line-height: 1.4; margin-top: 1.4rem;}
+  .recommendations-tab-content-wrapper .tab_group-wrapper .tab_content-card .tab_content-info .promo { font-size: 1.6rem;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content .button-wrapper { margin-top: 2rem;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner:before { left: 1.2rem;}
+  .recommendations-tab-content-wrapper .recommendations-tab-content-inner:after { right: 1.2rem;}
+  .recommendations-tab-content-wrapper .button:not(.button--secondary) { --min-height: 5.2rem; --min-width: 28rem; --padding-inline: 2rem; font-size: 1.6rem;}
+
+  .mobile-image-center-left img { object-position: center left;}
+  .mobile-image-center img { object-position: center;}
+  .mobile-image-center-right img { object-position: center right;}
+}

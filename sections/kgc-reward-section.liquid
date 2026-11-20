@@ -1,0 +1,518 @@
+{%- liquid
+  assign pad_top = section.settings.padding_top
+  assign pad_top_vw = pad_top | divided_by: 25.6 | round: 3
+  assign pad_top_min = pad_top | times: 0.4 | round
+
+  assign pad_bottom = section.settings.padding_bottom
+  assign pad_bottom_vw = pad_bottom | divided_by: 25.6 | round: 3
+  assign pad_bottom_min = pad_bottom | times: 0.4 | round
+
+  assign grand_alt = section.settings.grand_title | strip_html | escape
+-%}
+
+{%- style -%}
+  .kgc-reward-{{ section.id }} {
+    --kgc-bg: {{ section.settings.bg_color }};
+    --kgc-color: {{ section.settings.text_color }};
+    --kgc-pad-top: clamp({{ pad_top_min }}px, {{ pad_top_vw }}vw, {{ pad_top }}px);
+    --kgc-pad-bottom: clamp({{ pad_bottom_min }}px, {{ pad_bottom_vw }}vw, {{ pad_bottom }}px);
+  }
+{%- endstyle -%}
+
+<div class="kgc-reward kgc-reward-{{ section.id }}" id="kgc-reward">
+
+  {%- if section.settings.eyebrow != blank or section.settings.heading_1 != blank or section.settings.heading_2 != blank or section.settings.subtext != blank -%}
+    <div class="kgc-reward__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="kgc-reward__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading_1 != blank or section.settings.heading_2 != blank -%}
+        <h2 class="kgc-reward__heading">
+          {%- if section.settings.heading_1 != blank -%}
+            <span class="kgc-reward__heading-line">{{ section.settings.heading_1 | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_2 != blank -%}
+            <span class="kgc-reward__heading-line">{{ section.settings.heading_2 | escape }}</span>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="kgc-reward__subtext">{{ section.settings.subtext | escape }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.grand_image != blank or section.settings.grand_value != blank or section.settings.grand_title != blank -%}
+    <div class="kgc-reward__grand">
+      <div class="kgc-reward__grand-media">
+        {%- if section.settings.grand_image != blank -%}
+          {{
+            section.settings.grand_image
+            | image_url: width: 1600
+            | image_tag:
+              widths: '400, 600, 800, 1000, 1200, 1600',
+              sizes: '(min-width: 750px) 36vw, 90vw',
+              loading: 'lazy',
+              alt: grand_alt,
+              class: 'kgc-reward__grand-image'
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'kgc-reward__grand-image kgc-reward__placeholder' }}
+        {%- endif -%}
+      </div>
+
+      <div class="kgc-reward__grand-content">
+        {%- if section.settings.grand_label != blank -%}
+          <p class="kgc-reward__grand-label">{{ section.settings.grand_label | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.grand_value != blank -%}
+          <p class="kgc-reward__grand-value">{{ section.settings.grand_value | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.grand_title != blank -%}
+          <p class="kgc-reward__grand-title">{{ section.settings.grand_title | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="kgc-reward__grid">
+      {%- for block in section.blocks -%}
+        <div class="kgc-reward__card" {{ block.shopify_attributes }}>
+          <div class="kgc-reward__card-media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 1000
+                | image_tag:
+                  widths: '300, 400, 600, 800, 1000',
+                  sizes: '(min-width: 1024px) 21vw, (min-width: 750px) 42vw, 90vw',
+                  loading: 'lazy',
+                  alt: block.settings.title,
+                  class: 'kgc-reward__card-image'
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'kgc-reward__card-image kgc-reward__placeholder' }}
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.title != blank -%}
+            <p class="kgc-reward__card-title">{{ block.settings.title | escape }}</p>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="kgc-reward__card-text">{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.note != blank -%}
+    <div class="kgc-reward__note">
+      <p class="kgc-reward__note-text">{{ section.settings.note | escape }}</p>
+    </div>
+  {%- endif -%}
+
+</div>
+
+<style>
+  .kgc-reward {
+    --kgc-accent: #e8001c;
+    --kgc-panel: color-mix(in srgb, var(--kgc-color) 8%, transparent);
+    --kgc-line: color-mix(in srgb, var(--kgc-color) 14%, transparent);
+    /* 147px @2560px */
+    --kgc-side: clamp(16px, 5.74vw, 147px);
+
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--kgc-bg);
+    color: var(--kgc-color);
+    font-family: 'Montserrat', sans-serif;
+    padding-top: var(--kgc-pad-top);
+    padding-bottom: var(--kgc-pad-bottom);
+    padding-left: var(--kgc-side);
+    padding-right: var(--kgc-side);
+  }
+
+  /* ---------- Head ---------- */
+  .kgc-reward__head {
+    text-align: center;
+  }
+
+  .kgc-reward__eyebrow {
+    margin: 0;
+    color: var(--kgc-accent);
+    /* 44px @2560px */
+    font-size: clamp(0.75rem, 0.407rem + 1.465vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .kgc-reward__heading {
+    margin: clamp(10px, 2.9vw, 74px) 0 0;
+    color: var(--kgc-color);
+    font-family: 'Anton', 'Impact', sans-serif;
+    font-weight: 400;
+    /* 156px @2560px */
+    font-size: clamp(2.25rem, 6.094vw, 9.75rem);
+    line-height: 0.94;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  .kgc-reward__heading-line {
+    display: block;
+  }
+
+  .kgc-reward__subtext {
+    margin: clamp(14px, 3.4vw, 87px) 0 0;
+    color: var(--kgc-color);
+    opacity: 0.7;
+    /* 30px @2560px */
+    font-size: clamp(0.875rem, 0.703rem + 0.732vw, 1.875rem);
+    line-height: 1.4;
+  }
+
+  /* ---------- Grand prize ---------- */
+  .kgc-reward__grand {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 3.36vw, 86px);
+    box-sizing: border-box;
+    margin-top: clamp(20px, 3.4vw, 87px);
+    /* 58px @2560px */
+    padding: clamp(14px, 2.27vw, 58px);
+    background-color: var(--kgc-panel);
+  }
+
+  .kgc-reward__grand-media {
+    width: 100%;
+    min-width: 0;
+    line-height: 0;
+  }
+
+  .kgc-reward__grand-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 275 / 164;
+    object-fit: cover;
+  }
+
+  .kgc-reward__placeholder {
+    background-color: rgba(128, 128, 128, 0.15);
+    fill: rgba(128, 128, 128, 0.4);
+  }
+
+  .kgc-reward__grand-content {
+    min-width: 0;
+  }
+
+  .kgc-reward__grand-label {
+    margin: 0;
+    color: var(--kgc-accent);
+    /* 20px @2560px */
+    font-size: clamp(0.625rem, 0.518rem + 0.458vw, 1.25rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .kgc-reward__grand-value {
+    margin: clamp(6px, 1.6vw, 41px) 0 0;
+    color: var(--kgc-accent);
+    font-family: 'Anton', 'Impact', sans-serif;
+    font-weight: 400;
+    /* 136px @2560px */
+    font-size: clamp(2.5rem, 5.3125vw, 8.5rem);
+    line-height: 1;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  .kgc-reward__grand-title {
+    margin: clamp(6px, 1.5vw, 38px) 0 0;
+    color: var(--kgc-color);
+    /* 60px @2560px */
+    font-size: clamp(1rem, 0.528rem + 2.014vw, 3.75rem);
+    font-weight: 600;
+    line-height: 1.38;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- Prize cards ---------- */
+  .kgc-reward__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: clamp(10px, 1.76vw, 45px);
+    row-gap: clamp(28px, 3.3vw, 84px);
+    margin-top: clamp(20px, 3.25vw, 83px);
+  }
+
+  .kgc-reward__card {
+    min-width: 0;
+  }
+
+  .kgc-reward__card-media {
+    line-height: 0;
+    border: 1px solid var(--kgc-line);
+    overflow: hidden;
+  }
+
+  .kgc-reward__card-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 167 / 102;
+    object-fit: cover;
+  }
+
+  .kgc-reward__card-title {
+    margin: clamp(8px, 1.2vw, 31px) 0 0;
+    color: var(--kgc-color);
+    /* 34px @2560px */
+    font-size: clamp(0.875rem, 0.661rem + 0.915vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .kgc-reward__card-text {
+    margin: clamp(4px, 0.9vw, 23px) 0 0;
+    color: var(--kgc-color);
+    opacity: 0.65;
+    /* 24px @2560px */
+    font-size: clamp(0.75rem, 0.621rem + 0.549vw, 1.5rem);
+    line-height: 1.58;
+  }
+
+  /* ---------- Note bar ---------- */
+  .kgc-reward__note {
+    box-sizing: border-box;
+    margin-top: clamp(20px, 3.36vw, 86px);
+    padding: clamp(8px, 1.45vw, 37px) clamp(12px, 1.6vw, 42px);
+    background-color: var(--kgc-panel);
+  }
+
+  .kgc-reward__note-text {
+    margin: 0;
+    color: var(--kgc-color);
+    /* 22px @2560px */
+    font-size: clamp(0.625rem, 0.496rem + 0.549vw, 1.375rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Tablet ---------- */
+  @media screen and (min-width: 750px) {
+    .kgc-reward__grand {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .kgc-reward__grand-media {
+      flex: 0 0 40.8%;
+      width: 40.8%;
+    }
+
+    .kgc-reward__grand-content {
+      flex: 1 1 0;
+    }
+
+    .kgc-reward__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* ---------- Desktop ---------- */
+  @media screen and (min-width: 1024px) {
+    .kgc-reward__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "KGC Reward Section",
+  "tag": "section",
+  "class": "kgc-reward-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small top text",
+      "default": "The Reward"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading line 1",
+      "default": "Your transformation"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading line 2",
+      "default": "could win you this."
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Text below heading",
+      "default": "The participant with the best transformation will receive:"
+    },
+    {
+      "type": "header",
+      "content": "Grand prize"
+    },
+    {
+      "type": "image_picker",
+      "id": "grand_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "grand_label",
+      "label": "Label",
+      "default": "The Grand Prize"
+    },
+    {
+      "type": "text",
+      "id": "grand_value",
+      "label": "Big text (red)",
+      "default": "06 Months"
+    },
+    {
+      "type": "textarea",
+      "id": "grand_title",
+      "label": "Title",
+      "info": "Press Enter for a line break.",
+      "default": "VIP Coaching\nWith Kris Gethin"
+    },
+    {
+      "type": "header",
+      "content": "Bottom bar"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Text",
+      "default": "More prizes will be announced."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Content color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background color",
+      "default": "#050505"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "default": 152
+    }
+  ],
+  "blocks": [
+    {
+      "type": "prize",
+      "name": "Prize card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Prize name"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KGC Reward Section",
+      "blocks": [
+        {
+          "type": "prize",
+          "settings": {
+            "title": "Unmatched Supps",
+            "text": "A pre-, intra-, and post-workout supplement stack"
+          }
+        },
+        {
+          "type": "prize",
+          "settings": {
+            "title": "BioStack Labs",
+            "text": "A BioStack Labs stack"
+          }
+        },
+        {
+          "type": "prize",
+          "settings": {
+            "title": "GASP / Better Bodies",
+            "text": "A gift card from GASP / Better Bodies"
+          }
+        },
+        {
+          "type": "prize",
+          "settings": {
+            "title": "Nutrition Solutions",
+            "text": "A free box of food from Nutrition Solutions"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

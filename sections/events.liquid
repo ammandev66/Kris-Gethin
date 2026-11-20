@@ -1,0 +1,226 @@
+{{ 'events.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="custom-events-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="custom-events-wrapper page-width section-{{ section.id }}-padding">
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="title-wrapper title-wrapper--no-top-margin {{ section.settings.heading_alignment }}">
+        {% if section.settings.title != blank %}
+          <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="rte description">
+            {{- section.settings.description -}}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="custom-events-grid">
+      {% for block in section.blocks %}
+        <div class="custom-event-card color-{{ section.settings.column_color_scheme }} gradient">
+          <div class="custom-event-content">
+            {% if block.settings.description != blank %}
+              <div class="custom-event-desc rte">
+                {{- block.settings.description -}}
+              </div>
+            {% endif %}
+            {% if block.settings.date != blank %}
+              <div class="custom-event-date">
+                <span>{{ block.settings.date }}</span>
+              </div>
+            {% endif %}
+          </div>
+          {% if block.settings.image != blank %}
+            <div class="custom-event-image">
+              <div class="media" style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;">
+                <img  src="{{ block.settings.image | image_url }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.title }}" loading="lazy">
+              </div>
+            </div>
+          {% endif %}
+          {% if block.settings.more_content != blank %}
+            <a href="#event-{{ block.id }}" class="more-content-btn" rel="modal:open">More Info</a>
+            <div id="event-{{ block.id }}" class="modal event-modal">
+              {% if block.settings.image != blank %}
+                <div class="custom-event-modal-image">
+                  <img  src="{{ block.settings.image | image_url }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.title }}" loading="lazy">
+                </div>
+              {% endif %}
+              <div class="custom-event-modal-content">
+                {% if block.settings.description != blank %}
+                  <div class="custom-event-modal-desc rte">
+                    {{- block.settings.description -}}
+                  </div>
+                {% endif %}
+                {% if block.settings.date != blank %}
+                  <div class="custom-event-modal-date">
+                    <span>{{ block.settings.date }}</span>
+                  </div>
+                {% endif %}
+                {% if block.settings.more_content != blank %}
+                  <div class="more-content rte">
+                    {{- block.settings.more_content -}}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Events",
+  "class": "section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Events",
+      "label": "t:sections.multicolumn.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "text_alignment",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "default": "center"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "column_color_scheme",
+      "label": "Column color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "event",
+      "name": "Event",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "March 5-8 2026"
+        },
+        {
+          "type": "richtext",
+          "id": "more_content",
+          "label": "Popup content",
+          "default": "<p>The Arnold Sports Festival 2026 returns from March 5–8, 2026, bringing together elite athletes, fitness enthusiasts, and industry leaders for one of the largest multi-sport events in the world.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Events",
+      "blocks": [
+        {
+          "type": "event"
+        },
+        {
+          "type": "event"
+        },
+        {
+          "type": "event"
+        },
+        {
+          "type": "event"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,268 @@
+{{ 'question-with-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Content field - Desktop */
+  .main-question-with-text .content.rte,
+  .main-question-with-text .content.rte p,
+  .main-question-with-text .content.rte span {
+    font-size: 22px !important;
+    line-height: 31.5px !important;
+  }
+
+  .main-question-with-text .right-content h3,
+  .main-question-with-text .right-content .inline-richtext {
+    font-size: 8rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .main-question-with-text .question,
+  .main-question-with-text .question-wrapper h3,
+  .main-question-with-text .question-list-item h3 {
+    font-size: 3rem !important;
+    line-height: 1 !important;
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 749px) {
+    .main-question-with-text .content.rte,
+    .main-question-with-text .content.rte p,
+    .main-question-with-text .content.rte span {
+      font-size: 14px !important;
+      line-height: 19.6px !important;
+    }
+  }
+
+  /* Mobile only - Right content heading */
+  @media screen and (max-width: 749px) {
+    .main-question-with-text .right-content h3,
+    .main-question-with-text .right-content .inline-richtext {
+      font-size: 4rem !important;
+      line-height: 1 !important;
+    }
+  }
+
+  /* Mobile only - Question fields */
+  @media screen and (max-width: 749px) {
+    .main-question-with-text .question,
+    .main-question-with-text .question-wrapper h3,
+    .main-question-with-text .question-list-item h3 {
+      font-size: 1.8rem !important;
+      line-height: 1.1 !important;
+    }
+  } 
+
+{%- endstyle -%}
+
+<div id="{{ section.settings.anchor_id | handleize }}" class="question-with-text-wrapper">  
+  <div class="question-with-text color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" {% if settings.animations_reveal_on_scroll %}data-cascade{% endif %}>
+      {%- if section.settings.title != blank -%}
+        <div class="title-wrapper title-wrapper--no-top-margin {{ section.settings.heading_alignment }}">
+          {% if section.settings.title != blank %}
+            <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+          {% if section.settings.content != blank %}
+            <div class="content rte">
+              {{ section.settings.content }}
+            </div>
+          {% endif %}
+        </div>
+      {%- endif -%}
+
+      <div class="question-with-text-content">
+        <div class="left-content">
+          <div class="question-list">
+            {% for block in section.blocks %}
+              <div class="question-list-item">
+                <div class="question-wrapper">
+                  <h3 class="question">{{ block.settings.question }}</h3>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="right-content">
+          <h3 class="inline-richtext">{{ section.settings.right_title }}</h3>
+          <style>.klaviyo-form{ width:100%; }</style>
+          {% if section.settings.custom_liquid != blank %}
+            {{ section.settings.custom_liquid }}
+          {% else %}
+            {%- if section.settings.button_label != blank -%}
+              <a class="button" href="{{ section.settings.button_link }}">
+                <span>{{ section.settings.button_label }}</span>
+              </a>
+            {%- endif -%}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Question With Text",
+    "class": "section main-question-with-text",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "anchor_id",
+        "label": "Anchor ID",
+        "default": "question-section",
+        "info": "Use letters, numbers, and hyphens only. Example: question-section"
+      },      
+      {
+        "type": "inline_richtext",
+        "id": "title",
+        "default": "Question with text",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "heading_size",
+        "options": [
+          {
+            "value": "h2",
+            "label": "t:sections.all.heading_size.options__1.label"
+          },
+          {
+            "value": "h1",
+            "label": "t:sections.all.heading_size.options__2.label"
+          },
+          {
+            "value": "h0",
+            "label": "t:sections.all.heading_size.options__3.label"
+          },
+          {
+            "value": "hxl",
+            "label": "t:sections.all.heading_size.options__4.label"
+          },
+          {
+            "value": "hxxl",
+            "label": "t:sections.all.heading_size.options__5.label"
+          }
+        ],
+        "default": "h1",
+        "label": "t:sections.all.heading_size.label"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "text_alignment",
+        "id": "heading_alignment",
+        "label": "Heading alignment",
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Right content"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "right_title",
+        "label": "Heading",
+        "default": "IT’S INSIDE!"
+      },
+      {
+        "type": "liquid",
+        "id": "custom_liquid",
+        "label": "Custom HTML"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "default": "t:sections.multicolumn.settings.button_label.default",
+        "label": "t:sections.multicolumn.settings.button_label.label", 
+        "info": "t:sections.multicolumn.settings.button_label.info"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "t:sections.multicolumn.settings.button_link.label"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:sections.all.colors.label",
+        "default": "scheme-1"
+      },
+      {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 36
+      }
+    ],
+    "blocks": [
+      {
+        "type": "question",
+        "name": "Question",
+        "limit": 3,
+        "settings": [
+          {
+            "type": "inline_richtext",
+            "id": "question",
+            "label": "Question",
+            "default": "Want a dramatic 12-week transformation?"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Question With Text",
+        "blocks": [
+          {
+            "type": "question"
+          },
+          {
+            "type": "question"
+          },
+          {
+            "type": "question"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

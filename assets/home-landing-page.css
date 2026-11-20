@@ -1,0 +1,21 @@
+body{
+    font-family: 'Montserrat', sans-serif !important;
+}
+h1, h2, h3, h4{
+    font-family: 'Anton', 'Impact', sans-serif !important;
+}
+footer.footer.color-scheme-4.gradient.section-sections--21767736525035__footer-padding {
+    display: none;
+}
+
+.footer_wrapper.has_background.color-scheme-4.gradient {
+    display: none;
+}
+sticky-header.header-wrapper.color-scheme-4.gradient {
+    display: none;
+}
+@media(max-width: 767px){
+    h2{
+        line-height: normal !important;
+    }
+}

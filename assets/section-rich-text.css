@@ -1,0 +1,125 @@
+.rich-text {
+  z-index: 1;
+}
+
+.rich-text__wrapper {
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 4rem / var(--font-body-scale));
+}
+
+.rich-text:not(.rich-text--full-width) .rich-text__wrapper {
+  margin: auto;
+  width: calc(100% - 8rem / var(--font-body-scale));
+}
+
+.rich-text__blocks {
+  width: 100%;
+}
+
+@media screen and (min-width: 750px) {
+  .rich-text__wrapper {
+    width: 100%;
+  }
+
+  .rich-text__wrapper--left {
+    justify-content: flex-start;
+  }
+
+  .rich-text__wrapper--right {
+    justify-content: flex-end;
+  }
+
+  .rich-text__blocks {
+    max-width: 50rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .rich-text__blocks {
+    max-width: 78rem;
+  }
+}
+
+.rich-text__blocks * {
+  overflow-wrap: break-word;
+}
+
+.rich-text__blocks > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.rich-text__blocks > * + * {
+  margin-top: 2rem;
+}
+
+.rich-text__blocks > * + a {
+  margin-top: 3rem;
+}
+
+.rich-text__buttons {
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  max-width: 45rem;
+  word-break: break-word;
+}
+
+.rich-text__buttons--multiple > * {
+  flex-grow: 1;
+  min-width: 22rem;
+}
+
+.rich-text__buttons + .rich-text__buttons {
+  margin-top: 1rem;
+}
+
+.rich-text__blocks.left .rich-text__buttons {
+  justify-content: flex-start;
+}
+
+.rich-text__blocks.right .rich-text__buttons {
+  justify-content: flex-end;
+}
+
+/* Zenon css */
+.rich-text .rich-text__blocks .rich-text__heading { font-family: var(--font-thedus-wide-light); font-weight: 700; line-height: 0.678625;}
+.rich-text .rich-text__blocks .rich-text__heading strong { color: rgb(var(--color-button));}
+
+.another-membership { padding-bottom: 8.4rem; margin-bottom: -8.4rem;}
+.another-membership .rich-text__blocks .rich-text__heading { font-family: var(--font-thedus-wide-light); font-weight: 700; line-height: 0.678625;}
+.another-membership .rich-text__blocks .rich-text__heading strong { color: rgb(var(--color-button));}
+.another-membership .rich-text__blocks .rich-text__text { font-size: 3.3rem; font-weight: 500; line-height: 1.30145278; letter-spacing: 0.02em; margin-top: 3rem;}
+.another-membership .rich-text__blocks .rich-text__buttons { max-width: 100%; margin-top: 5rem;}
+
+@media screen and (min-width: 750px) {
+  .another-membership .rich-text__blocks { max-width: 73.291667vw;}
+  .another-membership .rich-text__blocks .rich-text__heading.hxxl { font-size: 5.885416666666667vw;}
+  .another-membership .rich-text__blocks .rich-text__text { font-size: 1.7187500000000002vw; margin-top: 1.5625vw; max-width: 52.083333333333336vw; display: inline-block;}
+  .another-membership .rich-text__blocks .rich-text__buttons { margin-top: 2.604166666666667vw;}
+    
+  @media screen and (max-width: 1260px) {
+    .another-membership .rich-text__blocks .rich-text__buttons .button:not(.button--secondary) { --min-height: 5.8rem; --min-width: 34rem; --padding-inline: 2rem; font-size: 1.8rem;}
+  }
+
+  @media screen and (max-width: 989px) {
+    .another-membership .rich-text__blocks { max-width: 68.291667vw;}
+    .another-membership .rich-text__blocks .rich-text__heading.hxxl { font-size: 6.885417vw;}
+    .another-membership .rich-text__blocks .rich-text__text { font-size: 2.21875vw; margin-top: 1.9625vw;}
+    .another-membership .rich-text__blocks .rich-text__buttons { margin-top: 3.004167vw;}
+    .another-membership .rich-text__blocks .rich-text__buttons .button:not(.button--secondary) { --edge-size: 1rem; --pseudo-space-x: -0.6rem; --pseudo-space-y: -1rem; --pseudo-space-span-x: -1.2rem; --pseudo-space-span-y: -0.3rem; --pseudo-width: 2rem; --pseudo-height: 2.2rem; --min-height: 4.8rem; --min-width: 34rem; --padding-inline: 2rem; font-size: 1.6rem; letter-spacing: 0.24em;}
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  .another-membership { padding-bottom: 4.42vw; margin-bottom: -4.42vw;}
+}
+
+@media screen and (max-width: 749px) {
+  .another-membership .rich-text .rich-text__wrapper { width: 100%;}
+  .another-membership .rich-text__blocks .rich-text__text { font-size: 1.8rem; margin-top: 2rem;}
+  .another-membership .rich-text__blocks .rich-text__buttons { margin-top: 3rem;}
+}

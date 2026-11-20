@@ -1,0 +1,501 @@
+{{ 'tab-content.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  {% if section.settings.bg_image != blank %}
+    #section-{{ section.id }} .tab-content-inner { background: url({{ section.settings.bg_image | image_url }})no-repeat scroll center; background-size: cover; padding-block: 4rem;}
+  {% endif %}
+
+  #section-{{ section.id }} .description {
+    font-size: 1.1em;
+  }
+
+  #section-{{ section.id }} .title-wrapper .title {
+    font-size: 7em;
+  }
+
+  @media screen and (max-width: 749px) {
+
+    /* Main heading field */
+    #section-{{ section.id }} .title-wrapper .title {
+      font-size: 4rem !important;
+      line-height: 1.1 !important;
+    }
+
+    /* Card heading field inside each tab */
+    #section-{{ section.id }} .tab_content-info h3 {
+      font-size: 1.8rem !important;
+      line-height: 1.2 !important;
+    }
+
+  }
+
+  @media screen and (max-width: 749px) {
+
+    /* Description field */
+    #section-{{ section.id }} .description,
+    #section-{{ section.id }} .description p {
+      font-size: 1.4rem !important;
+      line-height: 1.5 !important;
+    }
+
+  }
+
+  /* Description field - desktop */
+  #section-{{ section.id }} .description .custom-description-p {
+    font-size: 20px !important;
+    line-height: 26px !important;
+  }
+
+  /* Description field - mobile */
+  @media screen and (max-width: 749px) {
+    #section-{{ section.id }} .description .custom-description-p {
+      font-size: 14px !important;
+      line-height: 18.2px !important;
+    }
+  }
+
+  /* Tab content subblock - content field desktop */
+  #section-{{ section.id }} .tab_content-info .content,
+  #section-{{ section.id }} .tab_content-info .content p,
+  #section-{{ section.id }} .tab_content-info .content p * {
+    font-size: 20px !important;
+    line-height: 26px !important;
+  }
+
+  /* Tab content subblock - content field mobile */
+  @media screen and (max-width: 749px) {
+    #section-{{ section.id }} .tab_content-info .content,
+    #section-{{ section.id }} .tab_content-info .content p,
+    #section-{{ section.id }} .tab_content-info .content p * {
+      font-size: 14px !important;
+      line-height: 18.2px !important;
+    }
+  }
+
+{%- endstyle -%}
+
+<div id="section-{{ section.id }}" class="tab-content-wrapper{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %} color-{{ section.settings.color_scheme }} gradient">
+  <div class="tab-content-inner color-{{ section.settings.color_scheme }} gradient">
+    <div class="tab-content">
+      <div class="page-width section-{{ section.id }}-padding">
+        {%- if section.settings.title != blank or section.settings.description != blank -%}
+          <div class="title-wrapper title-wrapper--no-top-margin {{ section.settings.heading_alignment }}">
+            {% if section.settings.title != blank %}
+              <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+                {{ section.settings.title }}
+              </h2>
+            {% endif %}
+            {% if section.settings.description != blank %}
+              <div class="description rte">
+                {{ section.settings.description
+                  | replace: '<p>', '<p class="custom-description-p">'
+                }}
+              </div>
+            {% endif %}
+          </div>
+        {%- endif -%}
+
+        <div class="tab_content1">
+          {% assign tabgroup = 0 %}
+          {% for block in section.blocks %}
+            {% if block.type == 'tab_title' %}
+              {% assign tabgroup = tabgroup | plus:1 %}
+              {% if block.settings.title != blank %}
+                <div class="tab-heading tab_group_{{ tabgroup }}{% if tabgroup == 1 %} active{% endif %}" data-group-content="tab_group_content_{{ tabgroup }}">
+                  <h3 class="tab__title inline-richtext h4">{{ block.settings.title }}</h3>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="tab_content">
+          {% assign tabgroup = 0 %}
+          {% for block in section.blocks %}
+            {% if block.type == 'tab_title' %}
+              {% assign tabgroup = tabgroup | plus: 1 %}
+              {% if tabgroup > 1 %}
+                </div>
+                  <div class="swiper-button-wrapper">
+                    <div class="swiper-button swiper-button-prev">
+                      <svg width="15" height="8" class="icon icon-arrow" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4232 4.33379C14.6329 4.12409 14.6329 3.78411 14.4232 3.57442L11.006 0.157246C10.7963 -0.0524487 10.4563 -0.0524487 10.2466 0.157246C10.0369 0.36694 10.0369 0.706923 10.2466 0.916617L13.2841 3.9541L10.2466 6.99159C10.0369 7.20128 10.0369 7.54126 10.2466 7.75096C10.4563 7.96065 10.7963 7.96065 11.006 7.75096L14.4232 4.33379ZM0 3.9541V4.49106H14.0435V3.9541V3.41715H0V3.9541Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <div class="slider__pagination"></div>
+                    <div class="swiper-button swiper-button-next">
+                      <svg width="15" height="8" class="icon icon-arrow" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4232 4.33379C14.6329 4.12409 14.6329 3.78411 14.4232 3.57442L11.006 0.157246C10.7963 -0.0524487 10.4563 -0.0524487 10.2466 0.157246C10.0369 0.36694 10.0369 0.706923 10.2466 0.916617L13.2841 3.9541L10.2466 6.99159C10.0369 7.20128 10.0369 7.54126 10.2466 7.75096C10.4563 7.96065 10.7963 7.96065 11.006 7.75096L14.4232 4.33379ZM0 3.9541V4.49106H14.0435V3.9541V3.41715H0V3.9541Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              <div id="section-{{ section.id }}-{{ tabgroup }}" class="tab_group-wrapper swiper swiper-container{% if tabgroup == 1 %} active{% endif %} tab_group_content_{{ tabgroup }}">
+              <div class="tab_content-list swiper-wrapper">
+            {% endif %}
+            {% if block.type == 'tab_content' %}
+              <div class="tab_content-list-item swiper-slide color-{{ section.settings.column_color_scheme }} gradient">
+                <div class="tab_content-card">
+                  {% if block.settings.badge_label != blank %}
+                    <p class="tab_content-caption">{{ block.settings.badge_label }}</p>
+                  {% endif %}
+                  {% if block.settings.image != blank %}
+                    <div class="tab_content-card__image-wrapper">
+                      <div class="media media--transparent" style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;">
+                        <img src="{{ block.settings.image | image_url }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.image.alt }}" loading="lazy">
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% if block.settings.heading != blank or block.settings.contnet != blank %}
+                    <div class="tab_content-info">
+                      {% if block.settings.button_link != blank %}
+                        <a href="{{ block.settings.button_link }}" class="btn_link"></a>
+                      {% endif %}
+                      {% if block.settings.heading != blank %}
+                        <h3 class="inline-richtext">{{ block.settings.heading }}</h3>
+                      {% endif %}
+                      {% if block.settings.content != blank %}
+                        <div class="content rte">
+                          {{ block.settings.content }}
+                        </div>
+                      {% endif %}
+                      {% if block.settings.button_label != blank %}
+                        <div class="btn-wrapper">
+                          <a href="{{ block.settings.button_link }}" class="button">
+                            <span>{{ block.settings.button_label }}</span>
+                          </a>
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+            {% if forloop.last %}
+              </div>
+                <div class="swiper-button-wrapper">
+                  <div class="swiper-button swiper-button-prev">
+                    <svg width="15" height="8" class="icon icon-arrow" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14.4232 4.33379C14.6329 4.12409 14.6329 3.78411 14.4232 3.57442L11.006 0.157246C10.7963 -0.0524487 10.4563 -0.0524487 10.2466 0.157246C10.0369 0.36694 10.0369 0.706923 10.2466 0.916617L13.2841 3.9541L10.2466 6.99159C10.0369 7.20128 10.0369 7.54126 10.2466 7.75096C10.4563 7.96065 10.7963 7.96065 11.006 7.75096L14.4232 4.33379ZM0 3.9541V4.49106H14.0435V3.9541V3.41715H0V3.9541Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div class="slider__pagination"></div>
+                  <div class="swiper-button swiper-button-next">
+                    <svg width="15" height="8" class="icon icon-arrow" viewBox="0 0 15 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14.4232 4.33379C14.6329 4.12409 14.6329 3.78411 14.4232 3.57442L11.006 0.157246C10.7963 -0.0524487 10.4563 -0.0524487 10.2466 0.157246C10.0369 0.36694 10.0369 0.706923 10.2466 0.916617L13.2841 3.9541L10.2466 6.99159C10.0369 7.20128 10.0369 7.54126 10.2466 7.75096C10.4563 7.96065 10.7963 7.96065 11.006 7.75096L14.4232 4.33379ZM0 3.9541V4.49106H14.0435V3.9541V3.41715H0V3.9541Z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {%- if section.settings.button_label != blank -%}
+          <div class="center button-wrapper">
+            <a class="button button--primary" {% if section.settings.button_link == blank %}role="link" aria-disabled="true"{% else %}href="{{ section.settings.button_link }}"{% endif %}>
+              <span>{{ section.settings.button_label | escape }}</span>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const swipers = [];
+    document.querySelectorAll('.tab_group-wrapper.swiper').forEach((slider) => {
+      const instance = new Swiper(slider, {
+        speed: 500,
+        slidesPerView: 4,
+        spaceBetween: 38,
+        loop: true,
+        {% comment %} autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        }, {% endcomment %}
+        navigation: {
+          nextEl: slider.querySelector('.swiper-button-next'),
+          prevEl: slider.querySelector('.swiper-button-prev')
+        },
+        pagination: {
+          el: slider.querySelector('.slider__pagination'),
+          clickable: true
+        },
+        breakpoints: {
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 12
+          },
+          480: {
+            slidesPerView: 1,
+            spaceBetween: 12
+          },
+          749: {
+            slidesPerView: 2,
+            spaceBetween: 18
+          },
+          990: {
+            slidesPerView: 3,
+            spaceBetween: 22
+          },
+          1170: {
+            slidesPerView: 4,
+            spaceBetween: 38
+          }
+        }
+      });
+      {% comment %} swipers.push(instance); {% endcomment %}
+    });
+
+    {% comment %} document.querySelectorAll('.tab-heading').forEach(tab => {
+      tab.addEventListener('click', function () {
+        const target = this.dataset.groupContent;
+        document.querySelectorAll('.tab_group-wrapper').forEach(el => {
+          el.classList.remove('active');
+        });
+        document.querySelector('.' + target).classList.add('active');
+        setTimeout(() => {
+          swipers.forEach(sw => {
+            sw.update();
+            sw.slideTo(0, 0);
+            sw.autoplay.start();
+          });
+        }, 150);
+
+      });
+    });
+
+    setTimeout(() => {
+      swipers.forEach(sw => {
+        sw.update();
+        sw.autoplay.start();
+      });
+    }, 300); {% endcomment %}
+  });
+</script>
+
+<script type="text/javascript">
+  $(".tab_content1 .tab-heading").on('click', function(){  
+    var panelgroup = $(this).attr("data-group-content");
+    
+     $(".tab_content1 .tab-heading").removeClass("active");
+     $(".tab_content .tab_group-wrapper").removeClass("active");
+    
+     $(this).addClass("active");
+     $("."+panelgroup).addClass("active");
+  });
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.tab-content.name",
+  "class": "section section-tab-content main-tab-content",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.all.custom_class.label",
+      "info": "t:sections.all.custom_class.info"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "t:sections.tab-content.settings.title.default",
+      "label": "t:sections.tab-content.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.tab-content.settings.description.label"
+    },
+    {
+      "type": "text_alignment",
+      "id": "heading_alignment",
+      "label": "t:sections.tab-content.settings.heading_alignment.label",
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.tab-content.settings.header_button.content"
+    },    
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "t:sections.tab-content.settings.button_label.default",
+      "label": "t:sections.tab-content.settings.button_label.label", 
+      "info": "t:sections.tab-content.settings.button_label.info"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.tab-content.settings.button_link.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "t:sections.tab-content.settings.bg_image.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "column_color_scheme",
+      "label": "t:sections.all.column_colors.label",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab_title",
+      "name": "t:sections.tab-content.blocks.tab_title.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "t:sections.tab-content.blocks.tab_title.settings.title.label",
+          "default": "t:sections.tab-content.blocks.tab_title.settings.title.default"
+        }
+      ]
+    },
+    {
+      "type": "tab_content",
+      "name": "t:sections.tab-content.blocks.tab_content.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.tab-content.blocks.tab_content.settings.image.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.tab-content.blocks.tab_content.settings.heading.label",
+          "default": "t:sections.tab-content.blocks.tab_content.settings.heading.default"
+        },
+        {
+          "type": "text",
+          "id": "badge_label",
+          "label": "t:sections.tab-content.blocks.tab_content.settings.badge_label.label"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.tab-content.blocks.tab_content.settings.content.label",
+          "default": "t:sections.tab-content.blocks.tab_content.settings.content.default"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.tab-content.presets.name",
+      "blocks": [
+        {
+          "type": "tab_title"
+        },
+        {
+          "type": "tab_content"
+        },
+        {
+          "type": "tab_content"
+        },
+        {
+          "type": "tab_content"
+        },
+        {
+          "type": "tab_content"
+        },
+        {
+          "type": "tab_content"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

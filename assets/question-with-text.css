@@ -1,0 +1,76 @@
+.question-with-text-wrapper { position: relative;}
+.question-with-text-wrapper:after,
+.question-with-text-wrapper:before { content: ''; position: absolute; top: 4.2rem; left: auto; right: auto; bottom: auto; background: no-repeat scroll center center / 100% auto; width: 4.6rem; height: auto; aspect-ratio: 0.978723404; display: inline-flex; align-items: center; justify-content: center;}
+.question-with-text-wrapper:before { left: 4rem; background-image: url('icon-top-left-corner-black.svg');}
+.question-with-text-wrapper:after { right: 4rem; background-image: url('icon-top-right-corner-black.svg');}
+
+.question-with-text-wrapper .question-with-text:after,
+.question-with-text-wrapper .question-with-text:before { content: ''; position: absolute; bottom: 4rem; left: auto; right: auto; bottom: 4rem; background: no-repeat scroll center center / 100% auto; width: 4.6rem; height: auto; aspect-ratio: 0.978723404; display: inline-flex; align-items: center; justify-content: center;}
+.question-with-text-wrapper .question-with-text:before { left: 4rem; background-image: url('icon-top-left-corner-black.svg'); transform: rotate(-90deg);}
+.question-with-text-wrapper .question-with-text:after { right: 4rem; background-image: url('icon-top-right-corner-black.svg'); transform: rotate(90deg);}
+.question-with-text-wrapper .question-with-text .page-width { max-width: 173.1rem;}
+
+.question-with-text .title-wrapper { margin-bottom: 8rem;}
+.question-with-text .title-wrapper .title { font-family: var(--font-thedus-wide-light); font-weight: 700; line-height: 0.7437536; display: inline-block; margin: 0;}
+.question-with-text .title-wrapper .title strong { color: rgb(var(--color-button));}
+.question-with-text .title-wrapper .content { font-size: 3.3rem; font-weight: 500; line-height: 1.30145; letter-spacing: 0.02em; margin-top: 3.5rem; max-width: 120.7rem; display: inline-block;}
+
+.question-with-text-content { display: flex; gap: 7.6rem;}
+.question-with-text-content .left-content { width: calc(50% - 3.8rem); max-width: calc(50% - 3.8rem);}
+.question-with-text-content .left-content .question-list .question-list-item { position: relative;}
+.question-with-text-content .left-content .question-list .question-list-item:after { content: ''; position: absolute; top: 50%; left: 99%; width: 12rem; height: 0.8rem; background: rgb(var(--color-button));}
+.question-with-text-content .left-content .question-list .question-list-item:not(:last-child) { margin-bottom: 2.8rem;}
+.question-with-text-content .left-content .question-list .question-list-item .question-wrapper { --clip-path-edge-x-size: 3.5rem; --clip-path-edge-y-size: 3.5rem; --transition: .25s; position: relative; box-sizing: border-box; padding: 2.4rem 4.4rem 2.4rem 7rem; clip-path: polygon(0% 0%,calc(100% - var(--clip-path-edge-x-size)) 0%,100% var(--clip-path-edge-y-size),100% 100%,calc(var(--clip-path-edge-x-size) - .3rem) 100%,0% calc(100% - var(--clip-path-edge-y-size))); background: rgb(var(--color-button));}
+.question-with-text-content .left-content .question-list .question-list-item .question-wrapper .question { font-size: 5.2rem; font-weight: 700; line-height: 0.75; letter-spacing: normal; margin: 0; color: rgb(var(--color-button-text));}
+.question-with-text-content .right-content { width: calc(50% - 3.8rem); max-width: calc(50% - 3.8rem); background: rgb(var(--color-foreground)); position: relative; --clip-path-edge-x-size: 3rem; --clip-path-edge-y-size: 11.7rem; --transition: .25s; padding: 3.4rem; clip-path: polygon(0% 0%,calc(100% - var(--clip-path-edge-x-size)) 0%,100% var(--clip-path-edge-y-size),100% 100%,calc(var(--clip-path-edge-x-size) - .3rem) 100%,0% calc(100% - var(--clip-path-edge-y-size))); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;}
+.question-with-text-content .right-content .inline-richtext { font-family: var(--font-thedus-wide-light); font-size: 14.2rem; font-weight: 700; line-height: 0.58358; letter-spacing: normal; color: rgb(var(--color-background)); margin: 0 0 3rem 0;}
+.question-with-text-content .right-content .inline-richtext strong { color: rgb(var(--color-button));}
+
+@media screen and (min-width: 1900px) {
+  .question-with-text-wrapper:after,
+  .question-with-text-wrapper:before { top: 2.2105263157894735vw; width: 2.421052632vw;}
+  .question-with-text-wrapper:before { left: 2.1052631578947367vw;}
+  .question-with-text-wrapper:after { right: 2.1052631578947367vw;}
+  .question-with-text-wrapper .question-with-text:after,
+  .question-with-text-wrapper .question-with-text:before { bottom: 2.105263158vw; width: 2.421052632vw;}
+  .question-with-text-wrapper .question-with-text:before { left: 2.1052631578947367vw;}
+  .question-with-text-wrapper .question-with-text:after { right: 2.1052631578947367vw;}
+}
+
+@media screen and (min-width: 750px) {
+  .question-with-text .title-wrapper { margin-bottom: 4.166666666666666vw;}
+  .question-with-text .title-wrapper .title.hxxl { font-size: 5.364583333333333vw; max-width: 30.208333333333332vw;}
+  .question-with-text .title-wrapper .content { font-size: 1.7187500000000002vw; margin-top: 1.8229166666666667vw; max-width: 62.864583333333336vw;}
+
+  .question-with-text-content { gap: 3.958333333333333vw;}
+  .question-with-text-content .left-content { width: calc(50% - 1.9791666666666665vw); max-width: calc(50% - 1.9791666666666665vw);}
+  .question-with-text-content .left-content .question-list .question-list-item:after { width: 6.25vw; height: 0.4166666666666667vw;}
+  .question-with-text-content .left-content .question-list .question-list-item:not(:last-child) { margin-bottom: 1.4583333333333333vw;}
+  .question-with-text-content .left-content .question-list .question-list-item .question-wrapper { --clip-path-edge-x-size: 1.8229166666666667vw; --clip-path-edge-y-size: 1.8229166666666667vw; padding: 1.25vw 2.2916666666666665vw 1.25vw 3.6458333333333335vw;}
+  .question-with-text-content .left-content .question-list .question-list-item .question-wrapper .question { font-size: 2.7083333333333335vw;}
+  .question-with-text-content .right-content { width: calc(50% - 1.9791666666666665vw); max-width: calc(50% - 1.9791666666666665vw); --clip-path-edge-x-size: 1.5625vw; --clip-path-edge-y-size: 6.09375vw; padding: 1.7708333333333333vw;}
+  .question-with-text-content .right-content .inline-richtext { font-size: 7.395833333333333vw; margin: 0 0 1.5625vw 0;}
+  .question-with-text-content .right-content .button:not(.button--secondary) { --edge-size: 0.78125vw; --pseudo-space-x: -0.4166666666666667vw; --pseudo-space-y: -0.625vw; --pseudo-space-span-x: -0.78125vw; --pseudo-space-span-y: -0.15625vw; --pseudo-width: 1.3020833333333335vw; --pseudo-height: 1.4583333333333333vw; --min-height: 3.854166666666667vw; --min-width: 23.4375vw; --padding-inline: 2.083333333333333vw; font-size: 1.1458333333333333vw;}
+}
+
+@media screen and (max-width: 749px) {
+  .question-with-text-wrapper:after,
+  .question-with-text-wrapper:before { top: 2rem; width: 3.2rem;}
+  .question-with-text-wrapper:after { right: 1.2rem;}
+  .question-with-text-wrapper:before { left: 1.2rem;}
+  .question-with-text-wrapper .question-with-text:after,
+  .question-with-text-wrapper .question-with-text:before { bottom: 2rem; width: 3.2rem;}
+  .question-with-text-wrapper .question-with-text:after { right: 1.2rem;}
+  .question-with-text-wrapper .question-with-text:before { left: 1.2rem;}
+  .question-with-text .title-wrapper { margin-bottom: 3rem;}
+  .question-with-text .title-wrapper .title.hxxl { font-size: 4.2rem; max-width: 28rem;}
+  .question-with-text .title-wrapper .content { font-size: 1.6rem; margin-top: 1.4rem; max-width: 100%;}
+  .question-with-text-content { gap: 4.5rem; flex-direction: column-reverse;}
+  .question-with-text-content .left-content { width: 100%; max-width: 100%;}
+  .question-with-text-content .left-content .question-list .question-list-item:after { display: none;}
+  .question-with-text-content .left-content .question-list .question-list-item:not(:last-child) { margin-bottom: 1.8rem;}
+  .question-with-text-content .left-content .question-list .question-list-item .question-wrapper { --clip-path-edge-x-size: 2.5rem; --clip-path-edge-y-size: 2.5rem; padding: 1.6rem 2.4rem 2rem 3rem;}
+  .question-with-text-content .left-content .question-list .question-list-item .question-wrapper .question { font-size: 2.6rem;}
+  .question-with-text-content .right-content { width: 100%; max-width: 100%; --clip-path-edge-x-size: 2.4rem; --clip-path-edge-y-size: 6.7rem; padding: 4.4rem 2.4rem;}
+  .question-with-text-content .right-content .inline-richtext { font-size: 5.2rem; max-width: 24rem; margin-bottom: 2rem;}
+}

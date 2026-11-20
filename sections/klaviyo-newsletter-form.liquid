@@ -1,0 +1,438 @@
+{% comment %}
+  ┌─────────────────────────────────────────┐
+  │   KLAVIYO NEWSLETTER FORM               │
+  │   Fields: Name + Email only             │
+  │   Replace YOUR_PUBLIC_API_KEY           │
+  │   Replace YOUR_LIST_ID                  │
+  └─────────────────────────────────────────┘
+{% endcomment %}
+
+{%- style -%}
+  .kl-newsletter-section {
+    width: 100%;
+    background: {{ section.settings.bg_color }};
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 60px);
+  }
+
+  .kl-newsletter__inner {
+    max-width: {% if section.settings.full_width %}100%{% else %}{{ section.settings.max_width }}px{% endif %};
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: {{ section.settings.alignment }};
+    text-align: {{ section.settings.alignment }};
+    gap: 16px;
+  }
+
+  .kl-newsletter__heading {
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .kl-newsletter__subtext {
+    font-size: clamp(14px, 1.5vw, 16px);
+    color: {{ section.settings.text_color }};
+    margin: 0;
+    max-width: 520px;
+  }
+
+  .kl-newsletter__form {
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .kl-newsletter__input {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    background: #fff;
+    color: #1a1a1a;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+
+  .kl-newsletter__input:focus {
+    border-color: {{ section.settings.button_bg }};
+  }
+
+  .kl-newsletter__input::placeholder {
+    color: #aaa;
+  }
+
+  .kl-newsletter__btn {
+    width: 100%;
+    padding: 13px 28px;
+    background: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text_color }};
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    font-family: inherit;
+    letter-spacing: 0.04em;
+  }
+
+  .kl-newsletter__btn:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+
+  .kl-newsletter__btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .kl-newsletter__msg {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: none;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .kl-newsletter__msg.success {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+    display: block;
+  }
+
+  .kl-newsletter__msg.error {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    display: block;
+  }
+
+  .kl-newsletter__disclaimer {
+    font-size: 11px;
+    color: #aaa;
+    max-width: 520px;
+  }
+{%- endstyle -%}
+
+<section
+  class="kl-newsletter-section"
+  id="kl-newsletter-{{ section.id }}"
+>
+  <div class="kl-newsletter__inner">
+
+    {%- unless section.settings.heading == blank -%}
+      <h2 class="kl-newsletter__heading">{{ section.settings.heading }}</h2>
+    {%- endunless -%}
+
+    {%- unless section.settings.subtext == blank -%}
+      <p class="kl-newsletter__subtext">{{ section.settings.subtext }}</p>
+    {%- endunless -%}
+
+    <form
+      class="kl-newsletter__form"
+      id="kl-form-{{ section.id }}"
+      novalidate
+    >
+
+      <!-- Single Name Field -->
+      <input
+        type="text"
+        class="kl-newsletter__input"
+        id="kl-name-{{ section.id }}"
+        placeholder="{{ section.settings.name_placeholder | default: 'Your Name' }}"
+        autocomplete="name"
+      >
+
+      <!-- Email Field -->
+      <input
+        type="email"
+        class="kl-newsletter__input"
+        id="kl-email-{{ section.id }}"
+        placeholder="{{ section.settings.email_placeholder | default: 'Your Email Address' }}"
+        required
+        autocomplete="email"
+      >
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="kl-newsletter__btn"
+        id="kl-btn-{{ section.id }}"
+      >
+        {{ section.settings.button_label | default: 'Subscribe' }}
+      </button>
+
+    </form>
+
+    <!-- Success / Error Message -->
+    <div class="kl-newsletter__msg" id="kl-msg-{{ section.id }}"></div>
+
+    {%- unless section.settings.disclaimer == blank -%}
+      <p class="kl-newsletter__disclaimer">{{ section.settings.disclaimer }}</p>
+    {%- endunless -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var KLAVIYO_PUBLIC_KEY = '{{ section.settings.klaviyo_public_key }}';
+  var KLAVIYO_LIST_ID    = '{{ section.settings.klaviyo_list_id }}';
+  var sectionId          = '{{ section.id }}';
+
+  var form    = document.getElementById('kl-form-'  + sectionId);
+  var msgBox  = document.getElementById('kl-msg-'   + sectionId);
+  var btn     = document.getElementById('kl-btn-'   + sectionId);
+  var btnText = btn.textContent;
+
+  function showMsg(type, text) {
+    msgBox.className   = 'kl-newsletter__msg ' + type;
+    msgBox.textContent = text;
+  }
+
+  function setLoading(loading) {
+    btn.disabled    = loading;
+    btn.textContent = loading ? 'Subscribing...' : btnText;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var nameEl  = document.getElementById('kl-name-'  + sectionId);
+    var emailEl = document.getElementById('kl-email-' + sectionId);
+    var name    = nameEl.value.trim();
+    var email   = emailEl.value.trim();
+
+    // Validate email
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showMsg('error', 'Please enter a valid email address.');
+      return;
+    }
+
+    // Check keys
+    if (!KLAVIYO_PUBLIC_KEY) {
+      showMsg('error', 'API key is missing. Please configure section settings.');
+      return;
+    }
+    if (!KLAVIYO_LIST_ID) {
+      showMsg('error', 'List ID is missing. Please configure section settings.');
+      return;
+    }
+
+    setLoading(true);
+    msgBox.className = 'kl-newsletter__msg';
+
+    // Split "Full Name" → first_name + last_name for Klaviyo
+    var parts     = name.split(' ');
+    var firstName = parts[0] || '';
+    var lastName  = parts.slice(1).join(' ') || '';
+
+    var profileAttributes = { email: email };
+    if (firstName) profileAttributes.first_name = firstName;
+    if (lastName)  profileAttributes.last_name  = lastName;
+
+    // Klaviyo API v3 — subscribe to list
+    fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + KLAVIYO_PUBLIC_KEY, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'revision': '2023-12-15'
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'subscription',
+          attributes: {
+            profile: {
+              data: {
+                type: 'profile',
+                attributes: profileAttributes
+              }
+            }
+          },
+          relationships: {
+            list: {
+              data: {
+                type: 'list',
+                id: KLAVIYO_LIST_ID
+              }
+            }
+          }
+        }
+      })
+    })
+    .then(function (res) {
+      setLoading(false);
+      if (res.ok || res.status === 202) {
+        showMsg('success', '{{ section.settings.success_message | default: "Thank you for subscribing!" | escape }}');
+        form.reset();
+      } else {
+        return res.json().then(function (data) {
+          var errMsg = (data.errors && data.errors[0] && data.errors[0].detail) || 'Something went wrong. Please try again.';
+          showMsg('error', errMsg);
+        });
+      }
+    })
+    .catch(function () {
+      setLoading(false);
+      showMsg('error', 'Network error. Please check your connection and try again.');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Klaviyo Newsletter",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Klaviyo Settings"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_public_key",
+      "label": "Klaviyo Public API Key",
+      "info": "Klaviyo → Account → Settings → API Keys → Public Key"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID",
+      "info": "Klaviyo → Lists & Segments → Your List → Settings → List ID"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Subscribe to Our Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Get the latest deals, updates and news delivered to your inbox."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "By subscribing you agree to our Privacy Policy. Unsubscribe anytime."
+    },
+    {
+      "type": "header",
+      "content": "Form Fields"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Placeholder",
+      "default": "Your Name"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "Your Email Address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thank you for subscribing!"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left"   },
+        { "value": "center",     "label": "Center" },
+        { "value": "flex-end",   "label": "Right"  }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width",
+      "default": false,
+      "info": "When ON, max width below is ignored"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 400,
+      "max": 1400,
+      "step": 10,
+      "unit": "px",
+      "label": "Max Width",
+      "default": 700,
+      "info": "Only applies when Full Width is OFF"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f7f5f0"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Klaviyo Newsletter"
+    }
+  ]
+}
+{% endschema %}

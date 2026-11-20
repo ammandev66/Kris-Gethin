@@ -1,0 +1,83 @@
+@font-face {
+  font-family: 'Avenir Next';
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-regular.eot');
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-regular.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-regular.woff2') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-regular.woff') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next';
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-medium.eot');
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-medium.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-medium.woff2') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-medium.woff') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-medium.ttf') format('truetype');
+  font-weight: medium;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Avenir Next';
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-bold.eot');
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-bold.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-bold.woff2') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-bold.woff') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/avenirnext-bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'montserrat';
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/montserrat-regular.eot');
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/montserrat-regular.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/montserrat-regular.woff2') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/montserrat-regular.woff') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/montserrat-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thedus condensed light';
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-regular.eot');
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-regular.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-regular.woff2') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-regular.woff') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thedus condensed light';
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-bold.eot');
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-bold.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-bold.woff2') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-bold.woff') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-condensed-light-bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thedus wide light';
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-wide-light-bold.eot');
+  src: url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-wide-light-bold.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-wide-light-bold.woff2') format('woff2'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-wide-light-bold.woff') format('woff'),
+        url('https://cdn.shopify.com/s/files/1/0811/3294/5643/files/thedus-wide-light-bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,745 @@
+{{ 'customer-review.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px;
+  }
+
+  #revirew-{{ section.id }} .swiper-button {
+  width: 60px !important;
+  height: 60px !important;
+  }
+
+  #revirew-{{ section.id }} .swiper-button svg {
+    width: 60px !important;
+    height: auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="customer-review-section color-{{ section.settings.color_scheme }} gradient">
+  <div class="customer-review-wrapper section-{{ section.id }}-padding">
+    <div class="page-width isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" {% if settings.animations_reveal_on_scroll %}data-cascade{% endif %}>
+      {%- unless section.settings.title == blank -%}
+        <div class="title-wrapper title-wrapper--no-top-margin {{ section.settings.heading_alignment }}">
+          <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+            {{ section.settings.title }}
+          </h2>
+        </div>
+      {%- endunless -%}
+
+      <div id="revirew-{{ section.id }}" class="review_slider swiper swiper-container">
+        <div class="review-list swiper-wrapper">
+          {% for block in section.blocks %}
+            {% if block.type == 'column' %}
+              <div class="review-list__item review-list__item--{{ forloop.index }} swiper-slide mobile-hide">
+                <div class="review_wrapper color-{{ section.settings.column_color_scheme }} gradient">
+                  <div class="review-image">
+                    {% if block.settings.review_image != blank %}
+                      <div class="media media--transparent" style="padding-bottom: {{ 1 | divided_by: block.settings.review_image.aspect_ratio | times: 100 }}%;">
+                        <img src="{{ block.settings.review_image | image_url }}" width="{{ block.settings.review_image.width }}" height="{{ block.settings.review_image.height }}" alt="{{ block.settings.review_image.alt }}" loading="lazy">
+                      </div>
+                    {% else %}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                  <div class="review_content">
+                    <div class="review--icon-stars">
+                      <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91321 14.4195L15.0184 17.5008L13.6636 11.6934L18.1741 7.78605L12.2345 7.28213L9.91321 1.80518L7.59191 7.28213L1.65234 7.78605L6.16278 11.6934L4.808 17.5008L9.91321 14.4195Z" fill="#FDD264"/>
+                        <path d="M29.7394 14.4195L34.8446 17.5008L33.4898 11.6934L38.0003 7.78605L32.0607 7.28213L29.7394 1.80518L27.4181 7.28213L21.4785 7.78605L25.989 11.6934L24.6342 17.5008L29.7394 14.4195Z" fill="#FDD264"/>
+                        <path d="M49.5656 14.4195L54.6708 17.5008L53.316 11.6934L57.8264 7.78605L51.8869 7.28213L49.5656 1.80518L47.2443 7.28213L41.3047 7.78605L45.8151 11.6934L44.4603 17.5008L49.5656 14.4195Z" fill="#FDD264"/>
+                        <path d="M69.3917 14.4195L74.4969 17.5008L73.1422 11.6934L77.6526 7.78605L71.713 7.28213L69.3917 1.80518L67.0704 7.28213L61.1309 7.78605L65.6413 11.6934L64.2865 17.5008L69.3917 14.4195Z" fill="#FDD264"/>
+                        <path d="M89.2179 14.4195L94.3231 17.5008L92.9683 11.6934L97.4788 7.78605L91.5392 7.28213L89.2179 1.80518L86.8966 7.28213L80.957 7.78605L85.4675 11.6934L84.1127 17.5008L89.2179 14.4195Z" fill="#FDD264"/>
+                      </svg>
+                    </div>
+                    {%- if block.settings.customer_age != blank or block.settings.weight_loss != blank or block.settings.plan_length != blank -%}
+                      <div class="review--info">
+                        {%- if block.settings.customer_age != blank -%}
+                          <p class="customer-age">Age: {{ block.settings.customer_age }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.weight_loss != blank -%}
+                          <p class="weight-loss">Weight loss: {{ block.settings.weight_loss }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.plan_length != blank -%}
+                          <p class="plan-length">Plan length: {{ block.settings.plan_length }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.review_content != blank -%}
+                      <div class="review--content rte">{{ block.settings.review_content }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.customer_name != blank -%}
+                      <p class="review--author customer-name">{{ block.settings.customer_name }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+                
+                <div class="review_wrapper color-{{ section.settings.column_color_scheme }} gradient">
+                  <div class="review-image">
+                    {% if block.settings.review_image_2 != blank %}
+                      <div class="media media--transparent" style="padding-bottom: {{ 1 | divided_by: block.settings.review_image_2.aspect_ratio | times: 100 }}%;">
+                        <img src="{{ block.settings.review_image_2 | image_url }}" width="{{ block.settings.review_image_2.width }}" height="{{ block.settings.review_image_2.height }}" alt="{{ block.settings.review_image_2.alt }}" loading="lazy">
+                      </div>
+                    {% else %}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                  <div class="review_content">
+                    <div class="review--icon-stars">
+                      <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91321 14.4195L15.0184 17.5008L13.6636 11.6934L18.1741 7.78605L12.2345 7.28213L9.91321 1.80518L7.59191 7.28213L1.65234 7.78605L6.16278 11.6934L4.808 17.5008L9.91321 14.4195Z" fill="#FDD264"/>
+                        <path d="M29.7394 14.4195L34.8446 17.5008L33.4898 11.6934L38.0003 7.78605L32.0607 7.28213L29.7394 1.80518L27.4181 7.28213L21.4785 7.78605L25.989 11.6934L24.6342 17.5008L29.7394 14.4195Z" fill="#FDD264"/>
+                        <path d="M49.5656 14.4195L54.6708 17.5008L53.316 11.6934L57.8264 7.78605L51.8869 7.28213L49.5656 1.80518L47.2443 7.28213L41.3047 7.78605L45.8151 11.6934L44.4603 17.5008L49.5656 14.4195Z" fill="#FDD264"/>
+                        <path d="M69.3917 14.4195L74.4969 17.5008L73.1422 11.6934L77.6526 7.78605L71.713 7.28213L69.3917 1.80518L67.0704 7.28213L61.1309 7.78605L65.6413 11.6934L64.2865 17.5008L69.3917 14.4195Z" fill="#FDD264"/>
+                        <path d="M89.2179 14.4195L94.3231 17.5008L92.9683 11.6934L97.4788 7.78605L91.5392 7.28213L89.2179 1.80518L86.8966 7.28213L80.957 7.78605L85.4675 11.6934L84.1127 17.5008L89.2179 14.4195Z" fill="#FDD264"/>
+                      </svg>
+                    </div>
+                    {%- if block.settings.customer_age_2 != blank or block.settings.weight_loss_2 != blank or block.settings.plan_length_2 != blank -%}
+                      <div class="review--info">
+                        {%- if block.settings.customer_age_2 != blank -%}
+                          <p class="customer-age">Age: {{ block.settings.customer_age_2 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.weight_loss_2 != blank -%}
+                          <p class="weight-loss">Weight loss: {{ block.settings.weight_loss_2 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.plan_length_2 != blank -%}
+                          <p class="plan-length">Plan length: {{ block.settings.plan_length_2 }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.review_content_2 != blank -%}
+                      <div class="review--content rte">{{ block.settings.review_content_2 }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.customer_name_2 != blank -%}
+                      <p class="review--author customer-name">{{ block.settings.customer_name_2 }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+                
+                <div class="review_wrapper color-{{ section.settings.column_color_scheme }} gradient">
+                  <div class="review-image">
+                    {% if block.settings.review_image_3 != blank %}
+                      <div class="media media--transparent" style="padding-bottom: {{ 1 | divided_by: block.settings.review_image_3.aspect_ratio | times: 100 }}%;">
+                        <img src="{{ block.settings.review_image_3 | image_url }}" width="{{ block.settings.review_image_3.width }}" height="{{ block.settings.review_image_3.height }}" alt="{{ block.settings.review_image_3.alt }}" loading="lazy">
+                      </div>
+                    {% else %}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                  <div class="review_content">
+                    <div class="review--icon-stars">
+                      <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91321 14.4195L15.0184 17.5008L13.6636 11.6934L18.1741 7.78605L12.2345 7.28213L9.91321 1.80518L7.59191 7.28213L1.65234 7.78605L6.16278 11.6934L4.808 17.5008L9.91321 14.4195Z" fill="#FDD264"/>
+                        <path d="M29.7394 14.4195L34.8446 17.5008L33.4898 11.6934L38.0003 7.78605L32.0607 7.28213L29.7394 1.80518L27.4181 7.28213L21.4785 7.78605L25.989 11.6934L24.6342 17.5008L29.7394 14.4195Z" fill="#FDD264"/>
+                        <path d="M49.5656 14.4195L54.6708 17.5008L53.316 11.6934L57.8264 7.78605L51.8869 7.28213L49.5656 1.80518L47.2443 7.28213L41.3047 7.78605L45.8151 11.6934L44.4603 17.5008L49.5656 14.4195Z" fill="#FDD264"/>
+                        <path d="M69.3917 14.4195L74.4969 17.5008L73.1422 11.6934L77.6526 7.78605L71.713 7.28213L69.3917 1.80518L67.0704 7.28213L61.1309 7.78605L65.6413 11.6934L64.2865 17.5008L69.3917 14.4195Z" fill="#FDD264"/>
+                        <path d="M89.2179 14.4195L94.3231 17.5008L92.9683 11.6934L97.4788 7.78605L91.5392 7.28213L89.2179 1.80518L86.8966 7.28213L80.957 7.78605L85.4675 11.6934L84.1127 17.5008L89.2179 14.4195Z" fill="#FDD264"/>
+                      </svg>
+                    </div>
+                    {%- if block.settings.customer_age_3 != blank or block.settings.weight_loss_3 != blank or block.settings.plan_length_3 != blank -%}
+                      <div class="review--info">
+                        {%- if block.settings.customer_age_3 != blank -%}
+                          <p class="customer-age">Age: {{ block.settings.customer_age_3 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.weight_loss_3 != blank -%}
+                          <p class="weight-loss">Weight loss: {{ block.settings.weight_loss_3 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.plan_length_3 != blank -%}
+                          <p class="plan-length">Plan length: {{ block.settings.plan_length_3 }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.review_content_3 != blank -%}
+                      <div class="review--content rte">{{ block.settings.review_content_3 }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.customer_name_3 != blank -%}
+                      <p class="review--author customer-name">{{ block.settings.customer_name_3 }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+
+              <div class="review-list__item review-list__item--{{ forloop.index }} swiper-slide desktop-hide">
+                <div class="review_wrapper color-{{ section.settings.column_color_scheme }} gradient">
+                  <div class="review-image">
+                    {% if block.settings.review_image != blank %}
+                      <div class="media media--transparent" style="padding-bottom: {{ 1 | divided_by: block.settings.review_image.aspect_ratio | times: 100 }}%;">
+                        <img src="{{ block.settings.review_image | image_url }}" width="{{ block.settings.review_image.width }}" height="{{ block.settings.review_image.height }}" alt="{{ block.settings.review_image.alt }}" loading="lazy">
+                      </div>
+                    {% else %}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                  <div class="review_content">
+                    <div class="review--icon-stars">
+                      <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91321 14.4195L15.0184 17.5008L13.6636 11.6934L18.1741 7.78605L12.2345 7.28213L9.91321 1.80518L7.59191 7.28213L1.65234 7.78605L6.16278 11.6934L4.808 17.5008L9.91321 14.4195Z" fill="#FDD264"/>
+                        <path d="M29.7394 14.4195L34.8446 17.5008L33.4898 11.6934L38.0003 7.78605L32.0607 7.28213L29.7394 1.80518L27.4181 7.28213L21.4785 7.78605L25.989 11.6934L24.6342 17.5008L29.7394 14.4195Z" fill="#FDD264"/>
+                        <path d="M49.5656 14.4195L54.6708 17.5008L53.316 11.6934L57.8264 7.78605L51.8869 7.28213L49.5656 1.80518L47.2443 7.28213L41.3047 7.78605L45.8151 11.6934L44.4603 17.5008L49.5656 14.4195Z" fill="#FDD264"/>
+                        <path d="M69.3917 14.4195L74.4969 17.5008L73.1422 11.6934L77.6526 7.78605L71.713 7.28213L69.3917 1.80518L67.0704 7.28213L61.1309 7.78605L65.6413 11.6934L64.2865 17.5008L69.3917 14.4195Z" fill="#FDD264"/>
+                        <path d="M89.2179 14.4195L94.3231 17.5008L92.9683 11.6934L97.4788 7.78605L91.5392 7.28213L89.2179 1.80518L86.8966 7.28213L80.957 7.78605L85.4675 11.6934L84.1127 17.5008L89.2179 14.4195Z" fill="#FDD264"/>
+                      </svg>
+                    </div>
+                    {%- if block.settings.customer_age != blank or block.settings.weight_loss != blank or block.settings.plan_length != blank -%}
+                      <div class="review--info">
+                        {%- if block.settings.customer_age != blank -%}
+                          <p class="customer-age">Age: {{ block.settings.customer_age }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.weight_loss != blank -%}
+                          <p class="weight-loss">Weight loss: {{ block.settings.weight_loss }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.plan_length != blank -%}
+                          <p class="plan-length">Plan length: {{ block.settings.plan_length }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.review_content != blank -%}
+                      <div class="review--content rte">{{ block.settings.review_content }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.customer_name != blank -%}
+                      <p class="review--author customer-name">{{ block.settings.customer_name }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+              <div class="review-list__item review-list__item--{{ forloop.index }} swiper-slide desktop-hide">
+                <div class="review_wrapper color-{{ section.settings.column_color_scheme }} gradient">
+                  <div class="review-image">
+                    {% if block.settings.review_image_2 != blank %}
+                      <div class="media media--transparent" style="padding-bottom: {{ 1 | divided_by: block.settings.review_image_2.aspect_ratio | times: 100 }}%;">
+                        <img src="{{ block.settings.review_image_2 | image_url }}" width="{{ block.settings.review_image_2.width }}" height="{{ block.settings.review_image_2.height }}" alt="{{ block.settings.review_image_2.alt }}" loading="lazy">
+                      </div>
+                    {% else %}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                  <div class="review_content">
+                    <div class="review--icon-stars">
+                      <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91321 14.4195L15.0184 17.5008L13.6636 11.6934L18.1741 7.78605L12.2345 7.28213L9.91321 1.80518L7.59191 7.28213L1.65234 7.78605L6.16278 11.6934L4.808 17.5008L9.91321 14.4195Z" fill="#FDD264"/>
+                        <path d="M29.7394 14.4195L34.8446 17.5008L33.4898 11.6934L38.0003 7.78605L32.0607 7.28213L29.7394 1.80518L27.4181 7.28213L21.4785 7.78605L25.989 11.6934L24.6342 17.5008L29.7394 14.4195Z" fill="#FDD264"/>
+                        <path d="M49.5656 14.4195L54.6708 17.5008L53.316 11.6934L57.8264 7.78605L51.8869 7.28213L49.5656 1.80518L47.2443 7.28213L41.3047 7.78605L45.8151 11.6934L44.4603 17.5008L49.5656 14.4195Z" fill="#FDD264"/>
+                        <path d="M69.3917 14.4195L74.4969 17.5008L73.1422 11.6934L77.6526 7.78605L71.713 7.28213L69.3917 1.80518L67.0704 7.28213L61.1309 7.78605L65.6413 11.6934L64.2865 17.5008L69.3917 14.4195Z" fill="#FDD264"/>
+                        <path d="M89.2179 14.4195L94.3231 17.5008L92.9683 11.6934L97.4788 7.78605L91.5392 7.28213L89.2179 1.80518L86.8966 7.28213L80.957 7.78605L85.4675 11.6934L84.1127 17.5008L89.2179 14.4195Z" fill="#FDD264"/>
+                      </svg>
+                    </div>
+                    {%- if block.settings.customer_age_2 != blank or block.settings.weight_loss_2 != blank or block.settings.plan_length_2 != blank -%}
+                      <div class="review--info">
+                        {%- if block.settings.customer_age_2 != blank -%}
+                          <p class="customer-age">Age: {{ block.settings.customer_age_2 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.weight_loss_2 != blank -%}
+                          <p class="weight-loss">Weight loss: {{ block.settings.weight_loss_2 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.plan_length_2 != blank -%}
+                          <p class="plan-length">Plan length: {{ block.settings.plan_length_2 }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.review_content_2 != blank -%}
+                      <div class="review--content rte">{{ block.settings.review_content_2 }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.customer_name_2 != blank -%}
+                      <p class="review--author customer-name">{{ block.settings.customer_name_2 }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+              <div class="review-list__item review-list__item--{{ forloop.index }} swiper-slide desktop-hide">
+                <div class="review_wrapper color-{{ section.settings.column_color_scheme }} gradient">
+                  <div class="review-image">
+                    {% if block.settings.review_image_3 != blank %}
+                      <div class="media media--transparent" style="padding-bottom: {{ 1 | divided_by: block.settings.review_image_3.aspect_ratio | times: 100 }}%;">
+                        <img src="{{ block.settings.review_image_3 | image_url }}" width="{{ block.settings.review_image_3.width }}" height="{{ block.settings.review_image_3.height }}" alt="{{ block.settings.review_image_3.alt }}" loading="lazy">
+                      </div>
+                    {% else %}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                  <div class="review_content">
+                    <div class="review--icon-stars">
+                      <svg width="100" height="20" viewBox="0 0 100 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.91321 14.4195L15.0184 17.5008L13.6636 11.6934L18.1741 7.78605L12.2345 7.28213L9.91321 1.80518L7.59191 7.28213L1.65234 7.78605L6.16278 11.6934L4.808 17.5008L9.91321 14.4195Z" fill="#FDD264"/>
+                        <path d="M29.7394 14.4195L34.8446 17.5008L33.4898 11.6934L38.0003 7.78605L32.0607 7.28213L29.7394 1.80518L27.4181 7.28213L21.4785 7.78605L25.989 11.6934L24.6342 17.5008L29.7394 14.4195Z" fill="#FDD264"/>
+                        <path d="M49.5656 14.4195L54.6708 17.5008L53.316 11.6934L57.8264 7.78605L51.8869 7.28213L49.5656 1.80518L47.2443 7.28213L41.3047 7.78605L45.8151 11.6934L44.4603 17.5008L49.5656 14.4195Z" fill="#FDD264"/>
+                        <path d="M69.3917 14.4195L74.4969 17.5008L73.1422 11.6934L77.6526 7.78605L71.713 7.28213L69.3917 1.80518L67.0704 7.28213L61.1309 7.78605L65.6413 11.6934L64.2865 17.5008L69.3917 14.4195Z" fill="#FDD264"/>
+                        <path d="M89.2179 14.4195L94.3231 17.5008L92.9683 11.6934L97.4788 7.78605L91.5392 7.28213L89.2179 1.80518L86.8966 7.28213L80.957 7.78605L85.4675 11.6934L84.1127 17.5008L89.2179 14.4195Z" fill="#FDD264"/>
+                      </svg>
+                    </div>
+                    {%- if block.settings.customer_age_3 != blank or block.settings.weight_loss_3 != blank or block.settings.plan_length_3 != blank -%}
+                      <div class="review--info">
+                        {%- if block.settings.customer_age_3 != blank -%}
+                          <p class="customer-age">Age: {{ block.settings.customer_age_3 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.weight_loss_3 != blank -%}
+                          <p class="weight-loss">Weight loss: {{ block.settings.weight_loss_3 }}</p>
+                        {%- endif -%}
+                        {%- if block.settings.plan_length_3 != blank -%}
+                          <p class="plan-length">Plan length: {{ block.settings.plan_length_3 }}</p>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.review_content_3 != blank -%}
+                      <div class="review--content rte">{{ block.settings.review_content_3 }}</div>
+                    {%- endif -%}
+                    {%- if block.settings.customer_name_3 != blank -%}
+                      <p class="review--author customer-name">{{ block.settings.customer_name_3 }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if block.type == 'video' %}
+              <div class="review-list__item review-list__item--{{ forloop.index }} swiper-slide video-slide">
+                {%- liquid
+                  assign video_id = block.settings.video.id | default: block.settings.video_url.id
+                  assign video_alt = block.settings.video.alt | default: block.settings.description
+                  assign alt = 'sections.video.load_video' | t: description: video_alt | escape
+                  assign poster = block.settings.video.preview_image | default: block.settings.cover_image
+                
+                  if block.settings.video != null
+                    assign ratio_diff = block.settings.video.aspect_ratio | minus: poster.aspect_ratio | abs
+                    if ratio_diff < 0.01 and ratio_diff > 0
+                      assign fix_ratio = true
+                    endif
+                  endif
+                -%}
+                <deferred-media
+                  class="video-section__media deferred-media no-js-hidden gradient global-media-settings{% if fix_ratio %} media-fit-cover{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                  data-media-id="{{ video_id }}"
+                  {% if poster != null %}
+                    style="--ratio-percent: {{ 1 | divided_by: poster.aspect_ratio | times: 100 }}%;"
+                  {% endif %}
+                >
+                  <button
+                    id="Deferred-Poster-Modal-{{ video_id }}"
+                    class="video-section__poster media deferred-media__poster media--landscape"
+                    type="button"
+                    aria-label="{{ alt }}"
+                  >
+                    {%- if poster != null -%}
+                      {{
+                        poster
+                        | image_url: width: 3840
+                        | image_tag: sizes: sizes, widths: '375, 750, 1100, 1500, 1780, 2000, 3000, 3840', alt: alt
+                      }}
+                    {%- else -%}
+                      {{ 'hero-apparel-3' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                    {%- endif -%}
+                    <span class="deferred-media__poster-button motion-reduce">
+                      <span class="svg-wrapper">
+                        {{- 'icon-play-new.svg' | inline_asset_content -}}
+                      </span>
+                    </span>
+                  </button>
+                  <template>
+                    {%- if block.settings.video == null and block.settings.video_url != null -%}
+                      {%- liquid
+                        assign loop = ''
+                        if block.settings.enable_video_looping
+                          assign loop = '&loop=1&playlist=' | append: video_id
+                        endif
+                      -%}
+                      {%- if block.settings.video_url.type == 'youtube' -%}
+                        <iframe
+                          src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&autoplay=1{{ loop }}"
+                          class="js-youtube"
+                          allow="autoplay; encrypted-media"
+                          allowfullscreen
+                          title="{{ block.settings.title | escape }}"
+                        ></iframe>
+                      {%- else -%}
+                        <iframe
+                          src="https://player.vimeo.com/video/{{ video_id }}?autoplay=1{{ loop }}"
+                          class="js-vimeo"
+                          allow="autoplay; encrypted-media"
+                          allowfullscreen
+                          title="{{ block.settings.title | escape }}"
+                        ></iframe>
+                      {%- endif -%}
+                    {%- else -%}
+                      {{
+                        block.settings.video
+                        | video_tag:
+                          image_size: '1100x',
+                          autoplay: true,
+                          loop: block.settings.enable_video_looping,
+                          controls: true,
+                          muted: false
+                      }}
+                    {%- endif -%}
+                  </template>
+                </deferred-media>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="swiper-button-wrapper">
+          <div class="swiper-button swiper-button-prev">
+            <svg width="50" height="32" class="review-arrow review-arrow-prev" viewBox="0 0 50 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M45 16H5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <path d="M16 5L5 16L16 27" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="slider__pagination"></div>
+          <div class="swiper-button swiper-button-next">
+            <svg width="50" height="32" class="review-arrow review-arrow-next" viewBox="0 0 50 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 16H45" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              <path d="M34 5L45 16L34 27" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  swiper = new Swiper("#revirew-{{ section.id }}", {
+    speed: 500,
+    slidesPerView: 2,
+    // slidesPerColumn: 3,
+    // slidesPerGroup: 1,
+    // slidesPerColumnFill: 'column',
+    spaceBetween: 23,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.slider__pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+        // slidesPerColumn: 1,
+        // slidesPerGroup: 1,
+        // slidesPerColumnFill: 'column',
+        spaceBetween: 12,
+      },
+      749: {
+        slidesPerView: 1,
+        // slidesPerColumn: 1,
+        // slidesPerGroup: 1,
+        // slidesPerColumnFill: 'column',
+        spaceBetween: 23,
+      },
+      989: {
+        slidesPerView: 1,
+        // slidesPerColumn: 2,
+        // slidesPerGroup: 1,
+        // slidesPerColumnFill: 'column',
+        spaceBetween: 23,
+      },
+      1170: {
+        slidesPerView: 1.5,
+        // slidesPerColumn: 2,
+        // slidesPerGroup: 1,
+        // slidesPerColumnFill: 'column',
+        spaceBetween: 23,
+      },
+      1900: {
+        slidesPerView: 2,
+        // slidesPerColumn: 3,
+        // slidesPerGroup: 1,
+        // slidesPerColumnFill: 'column',
+        spaceBetween: 23,
+      }
+    }
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Customer review",
+    "class": "section",
+    "tag": "section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "inline_richtext",
+        "id": "title",
+        "default": "Customer review",
+        "label": "t:sections.multicolumn.settings.title.label"
+      },
+      {
+        "type": "select",
+        "id": "heading_size",
+        "options": [
+          {
+            "value": "h2",
+            "label": "t:sections.all.heading_size.options__1.label"
+          },
+          {
+            "value": "h1",
+            "label": "t:sections.all.heading_size.options__2.label"
+          },
+          {
+            "value": "h0",
+            "label": "t:sections.all.heading_size.options__3.label"
+          },
+          {
+            "value": "hxl",
+            "label": "t:sections.all.heading_size.options__4.label"
+          },
+          {
+            "value": "hxxl",
+            "label": "t:sections.all.heading_size.options__5.label"
+          }
+        ],
+        "default": "h1",
+        "label": "t:sections.all.heading_size.label"
+      },
+      {
+        "type": "text_alignment",
+        "id": "heading_alignment",
+        "label": "Heading alignment",
+        "default": "center"
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:sections.all.colors.label",
+        "default": "scheme-1"
+      },
+      {
+        "type": "color_scheme",
+        "id": "column_color_scheme",
+        "label": "Column color scheme",
+        "default": "scheme-2"
+      },
+      {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 36
+      }
+    ],
+     "blocks": [
+      {
+        "type": "column",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "header",
+            "content": "First review"
+          },
+          {
+            "type": "image_picker",
+            "id": "review_image",
+            "label": "Review image"
+          },
+          {
+            "type": "text",
+            "id": "customer_age",
+            "label": "Age",
+            "default": "37"
+          },
+          {
+            "type": "text",
+            "id": "weight_loss",
+            "label": "Weight loss",
+            "default": "75lbs lost"
+          },
+          {
+            "type": "text",
+            "id": "plan_length",
+            "label": "Plan length",
+            "default": "12 months"
+          },
+          {
+            "type": "richtext",
+            "id": "review_content",
+            "label": "Review content",
+            "default": "<p>I have been working with Kris for the past 2 years. In these 2 years I have turned from an obese person to a person who has been around 8-12 PBF around the year and I have a gained great amount of muscle as well. More importantly my lifestyle has changed for good that includes my training and eating habits. I will have no issue in saying that this has been the best investment I have done so far in the last 2 years.</p>"
+          },
+          {
+            "type": "text",
+            "id": "customer_name",
+            "label": "Customer name",
+            "default": "Shaun Howard"
+          },
+          {
+            "type": "header",
+            "content": "Second review"
+          },
+          {
+            "type": "image_picker",
+            "id": "review_image_2",
+            "label": "Review image"
+          },
+          {
+            "type": "text",
+            "id": "customer_age_2",
+            "label": "Age",
+            "default": "37"
+          },
+          {
+            "type": "text",
+            "id": "weight_loss_2",
+            "label": "Weight loss",
+            "default": "75lbs lost"
+          },
+          {
+            "type": "text",
+            "id": "plan_length_2",
+            "label": "Plan length",
+            "default": "12 months"
+          },
+          {
+            "type": "richtext",
+            "id": "review_content_2",
+            "label": "Review content",
+            "default": "<p>I have been working with Kris for the past 2 years. In these 2 years I have turned from an obese person to a person who has been around 8-12 PBF around the year and I have a gained great amount of muscle as well. More importantly my lifestyle has changed for good that includes my training and eating habits. I will have no issue in saying that this has been the best investment I have done so far in the last 2 years.</p>"
+          },
+          {
+            "type": "text",
+            "id": "customer_name_2",
+            "label": "Customer name",
+            "default": "Shaun Howard"
+          },
+          {
+            "type": "header",
+            "content": "Third review"
+          },
+          {
+            "type": "image_picker",
+            "id": "review_image_3",
+            "label": "Review image"
+          },
+          {
+            "type": "text",
+            "id": "customer_age_3",
+            "label": "Age",
+            "default": "37"
+          },
+          {
+            "type": "text",
+            "id": "weight_loss_3",
+            "label": "Weight loss",
+            "default": "75lbs lost"
+          },
+          {
+            "type": "text",
+            "id": "plan_length_3",
+            "label": "Plan length",
+            "default": "12 months"
+          },
+          {
+            "type": "richtext",
+            "id": "review_content_3",
+            "label": "Review content",
+            "default": "<p>I have been working with Kris for the past 2 years. In these 2 years I have turned from an obese person to a person who has been around 8-12 PBF around the year and I have a gained great amount of muscle as well. More importantly my lifestyle has changed for good that includes my training and eating habits. I will have no issue in saying that this has been the best investment I have done so far in the last 2 years.</p>"
+          },
+          {
+            "type": "text",
+            "id": "customer_name_3",
+            "label": "Customer name",
+            "default": "Shaun Howard"
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "name": "Video",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Video settings"
+          },
+          {
+            "type": "header",
+            "content": "t:sections.video.settings.header__1.content"
+          },
+          {
+            "type": "video",
+            "id": "video",
+            "label": "t:sections.video.settings.video.label"
+          },
+          {
+            "type": "header",
+            "content": "t:sections.video.settings.header__2.content"
+          },
+          {
+            "type": "paragraph",
+            "content": "t:sections.video.settings.paragraph.content"
+          },
+          {
+            "type": "video_url",
+            "id": "video_url",
+            "accept": ["youtube", "vimeo"],
+            "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "label": "t:sections.video.settings.video_url.label",
+            "info": "t:sections.video.settings.video_url.info"
+          },
+          {
+            "type": "image_picker",
+            "id": "cover_image",
+            "label": "t:sections.video.settings.cover_image.label"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_video_looping",
+            "label": "t:sections.video.settings.enable_video_looping.label",
+            "default": false
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Customer review",
+        "blocks": [
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          },
+          {
+            "type": "column"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
